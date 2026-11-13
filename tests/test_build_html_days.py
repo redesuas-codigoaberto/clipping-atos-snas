@@ -2,6 +2,7 @@
 
 import datetime as dt
 import json
+import urllib.error
 
 import backfill_html
 import build_html_days
@@ -60,3 +61,17 @@ def test_an_act_without_text_is_not_a_failure(tmp_path, monkeypatch):
 
     monkeypatch.setattr(build_html_days, 'save_article', no_text)
     assert build_html_days.save_texts(tmp_path, DATE, [make_article()]) == []
+
+
+def test_a_page_the_dou_no_longer_serves_is_not_a_failure_but_other_errors_are(tmp_path, monkeypatch):
+    def http_error(code):
+        def fail(art, out):
+            raise urllib.error.HTTPError('https://example', code, 'error', {}, None)
+
+        return fail
+
+    article = make_article()
+    monkeypatch.setattr(build_html_days, 'save_article', http_error(404))
+    assert build_html_days.save_texts(tmp_path, DATE, [article]) == []
+    monkeypatch.setattr(build_html_days, 'save_article', http_error(500))
+    assert len(build_html_days.save_texts(tmp_path, DATE, [article])) == 1

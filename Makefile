@@ -5,7 +5,7 @@ PORT ?= 8000
 UV_RUN = uv run --group dev
 
 .DEFAULT_GOAL := help
-.PHONY: help site serve regenerate test lint format check dispatch
+.PHONY: help site serve regenerate regenerate-historico test lint format check dispatch
 
 help: ## List the available targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
@@ -27,6 +27,9 @@ regenerate: ## Rewrite clipping-novo/ from data/ with the current rules (after a
 		fi; \
 	done
 	@git diff --stat -- clipping-novo
+
+regenerate-historico: ## Rewrite clipping-historico/ (2004-2025) from cache/historico/data with the current rules
+	$(PYTHON) scripts/clippings_range.py
 
 test: ## Run the tests
 	$(UV_RUN) pytest

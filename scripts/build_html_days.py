@@ -12,6 +12,7 @@ import datetime as dt
 import gzip
 import json
 import sys
+import urllib.error
 from pathlib import Path
 
 import dates
@@ -57,6 +58,10 @@ def save_texts(data_dir, date, candidates):
         except NoArticleBody:
             # Not a failure: the clipping falls back to the index snippet, as it does for any act without a text.
             continue
+        except urllib.error.HTTPError as exc:
+            # The DOU no longer serves some old acts (404); retrying never helps, so the snippet is used as well.
+            if exc.code != 404:
+                failures.append(f'{article["urlTitle"]}: {exc}')
         except Exception as exc:  # noqa: BLE001 - a failed act is retried on the next run
             failures.append(f'{article["urlTitle"]}: {exc}')
     return failures
