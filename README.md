@@ -115,6 +115,8 @@ Os testes comparam o resultado das regras com o arquivo de 2026:
 - cada clipping de `clipping-novo/` tem de ser igual ao que as regras atuais geram a partir de `data/`;
 - a concordância com os clippings da equipe (`clipping-antigo/`) não pode cair abaixo da medida em 12/11/2026: 60 emails idênticos, 101 com os mesmos atos e 305 dos 307 atos do MDS enviados pela equipe sugeridos pela regra.
 
+Os testes também abrem as páginas geradas no Chrome (ou Chromium) instalado, em largura de celular e de desktop. Eles falham se houver erro de JavaScript, arquivo que não carrega ou conteúdo mais largo que a tela, e também conferem a janela de comparação num iPhone emulado. Sem navegador instalado, esses testes são pulados; nos workflows, que definem `REQUIRE_BROWSER`, eles falham. No workflow diário, os testes rodam antes da publicação, então uma página quebrada não vai ao ar.
+
 Ao mudar uma regra de propósito, rode `make regenerate` e confira no diff quais clippings antigos mudaram. Se a concordância melhorar, atualize os números mínimos em `tests/test_archive.py`.
 
 ## Licença

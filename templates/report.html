@@ -868,7 +868,11 @@ loadModel().then(model => {
   }
   window.addEventListener('hashchange', route);
   route();
-}).catch(error => { $('#app').innerHTML = `<p class="loading">Não foi possível ler os dados: ${esc(error.message)}</p>`; });
+}).catch(error => {
+  // Logged too, so the error shows in the browser console and in the page tests, not only on screen.
+  console.error(error);
+  $('#app').innerHTML = `<p class="loading error">Não foi possível mostrar o relatório: ${esc(error.message)}</p>`;
+});
 </script>
 </body>
 </html>
