@@ -70,6 +70,10 @@ class ArticleParser(HTMLParser):
         self.block = None
 
 
+class NoArticleBody(RuntimeError):
+    """The act's page has no text; the DOU publishes some acts only as an image or PDF."""
+
+
 def save_article(article, output_dir):
     """Download one act and write it as Markdown; returns the path, or None when it was already saved."""
     path = output_dir / (article['urlTitle'].rsplit('/', 1)[-1] + '.md')
@@ -80,7 +84,7 @@ def save_article(article, output_dir):
     parser.feed(get_html(url))
     parser.flush()
     if not parser.blocks:
-        raise RuntimeError(f'No article body found: {url}')
+        raise NoArticleBody(f'No article body found: {url}')
     header = [
         f'# {article["title"]}',
         f'Source: {url}',

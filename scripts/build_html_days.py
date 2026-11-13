@@ -17,7 +17,7 @@ from pathlib import Path
 import dates
 from backfill_html import path_for
 from clipping import is_candidate
-from save_articles import save_article
+from save_articles import NoArticleBody, save_article
 from scrape import SECTIONS
 
 
@@ -54,6 +54,9 @@ def save_texts(data_dir, date, candidates):
     for article in candidates:
         try:
             save_article(article, output_dir)
+        except NoArticleBody:
+            # Not a failure: the clipping falls back to the index snippet, as it does for any act without a text.
+            continue
         except Exception as exc:  # noqa: BLE001 - a failed act is retried on the next run
             failures.append(f'{article["urlTitle"]}: {exc}')
     return failures

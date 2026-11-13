@@ -52,3 +52,11 @@ def test_save_texts_reports_failures_and_skips_saved_acts(tmp_path, monkeypatch)
 
     monkeypatch.setattr(build_html_days, 'save_article', broken)
     assert build_html_days.save_texts(tmp_path, DATE, [article]) == [f'{article["urlTitle"]}: boom']
+
+
+def test_an_act_without_text_is_not_a_failure(tmp_path, monkeypatch):
+    def no_text(art, out):
+        raise build_html_days.NoArticleBody('no body')
+
+    monkeypatch.setattr(build_html_days, 'save_article', no_text)
+    assert build_html_days.save_texts(tmp_path, DATE, [make_article()]) == []
