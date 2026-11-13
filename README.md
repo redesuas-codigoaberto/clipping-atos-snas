@@ -17,10 +17,10 @@ Cada execução, com os scripts de `scripts/`:
 
 1. coleta o índice da edição do dia (`scrape.py`);
 2. baixa o texto dos atos do MDS (`save_articles.py`);
-3. grava o email do clipping em `clipping-novo/AAAA-MM-DD.md` (`clipping.py`);
+3. grava o email do clipping em `clipping-novo/DD-MM-AAAA.md` (`clipping.py`);
 4. faz commit dos atos coletados e do clipping;
 5. roda os testes (veja “Desenvolvimento”); se algum falhar, os dados ficam salvos, mas nada é publicado;
-6. gera as páginas do clipping (`build_site.py`) e o relatório (`report.py`) e publica tudo no GitHub Pages.
+6. gera as páginas (`report.py`) e as publica no GitHub Pages.
 
 `daily.py` executa os três primeiros passos. Em datas sem edição, como fins de semana e feriados, ele não grava clipping, e a execução termina sem erro. Num dia útil sem edição, a execução também termina sem erro, mas abre a issue “Dia útil sem atos no DOU”, porque o mesmo resultado apareceria se o site do DOU mudasse e a coleta deixasse de achar os atos. Se foi feriado ou ponto facultativo, basta fechar a issue. O resumo da execução, na página do workflow, mostra quantos atos a edição teve, quantos são do MDS e quantos entraram no clipping.
 
@@ -32,25 +32,25 @@ Quando uma execução falha, o workflow abre a issue “Falha no clipping diári
 
 | Caminho | Conteúdo |
 | --- | --- |
-| `data/AAAA-MM-DD.json` | Atos do MDS da edição, com `count` igual ao total de atos publicados no DOU naquele dia. |
-| `data/AAAA-MM-DD/*.md` | Texto de cada ato do MDS. |
+| `data/DD-MM-AAAA.json` | Atos do MDS da edição, com `count` igual ao total de atos publicados no DOU naquele dia. |
+| `data/DD-MM-AAAA/*.md` | Texto de cada ato do MDS. |
 | `data/located.json` | Data e órgão dos atos de fora do MDS citados nos clippings manuais de 2026, tirados dos índices completos do DOU. |
-| `clipping-novo/AAAA-MM-DD.md` | Email do clipping gerado. |
+| `clipping-novo/DD-MM-AAAA.md` | Email do clipping gerado. |
 | `clipping-antigo/*.md` | Clippings enviados pela equipe, sem o cabeçalho do email. |
 | `docs/regras.md` | Explicação das regras, exibida na aba Regras do relatório. |
 | `scripts/` | Os scripts do clipping, das páginas e do relatório. |
 | `templates/report.html` | Modelo das páginas do relatório. |
 | `tests/` | Testes automáticos (veja “Desenvolvimento”). |
 
+Os nomes dos arquivos usam a data no formato DD-MM-AAAA. Por isso, a lista em ordem alfabética, como a do GitHub, não segue a ordem das datas.
+
 O índice guarda só os atos do MDS, porque são os únicos avaliados. O índice completo de um dia tem cerca de 3 MB; o enxuto, poucos KB.
 
 ## As páginas
 
-A página inicial (`index.html`) mostra só o email gerado pelo programa, com o botão **Copiar** e com setas e calendário para trocar de dia.
+A página inicial (`index.html`) mostra só o email gerado pelo programa, com o botão **Copiar**, que copia o email com a formatação, pronto para colar, e com setas e calendário para trocar de dia.
 
 `relatorio.html` é o relatório completo, que compara a seleção da regra com os clippings enviados pela equipe em cinco abas: Análise ano, Regras, Clipping, Comparativo resumos e Análise dia. As duas páginas são recalculadas a cada execução.
-
-`clipping.html` mostra só o clipping mais recente, para copiar sem abrir o relatório. Cada dia também tem sua própria página (`AAAA-MM-DD.html`), e as setas passam de um dia para outro. O botão **Copiar** copia o email com a formatação, pronto para colar.
 
 As páginas do GitHub Pages são públicas.
 
@@ -65,13 +65,13 @@ git add clipping-antigo && git commit -m "Add manual clippings" && git push
 
 `add_manual.py` mantém só o título e o corpo do email. Remetente, destinatários e identificador da mensagem não são copiados. O relatório é atualizado na próxima execução do workflow, ou na hora, se você rodá-lo à mão.
 
-Se um clipping manual citar um ato de fora do MDS publicado depois de 2026-11-12, o relatório mostra o ato como não encontrado nos índices, porque o índice enxuto não guarda os outros órgãos.
+Se um clipping manual citar um ato de fora do MDS publicado depois de 12/11/2026, o relatório mostra o ato como não encontrado nos índices, porque o índice enxuto não guarda os outros órgãos.
 
 ## Configuração no GitHub
 
 1. Crie o repositório no GitHub e envie este conteúdo.
 2. Em **Settings → Pages**, escolha **GitHub Actions** em **Source**.
-3. Em **Actions → Clipping diário → Run workflow**, rode o workflow uma vez para testar. O campo de data aceita `AAAA-MM-DD`; vazio, usa a data de hoje.
+3. Em **Actions → Clipping diário → Run workflow**, rode o workflow uma vez para testar. O campo de data aceita `DD-MM-AAAA`; vazio, usa a data de hoje.
 
 O GitHub desativa execuções agendadas depois de 60 dias sem atividade no repositório. Os commits diários dos clippings mantêm o repositório ativo.
 
@@ -81,9 +81,8 @@ Requer Python 3.12 ou superior, sem pacotes externos.
 
 ```bash
 python scripts/daily.py                    # edição de hoje
-python scripts/daily.py --date 2026-11-05  # outra data
-python scripts/build_site.py               # grava as páginas do clipping em site/
-python scripts/report.py                   # grava site/relatorio.html e site/index.html (depois de build_site.py, que limpa site/)
+python scripts/daily.py --date 05-11-2026  # outra data
+python scripts/report.py                   # grava site/index.html e site/relatorio.html
 ```
 
 Para ver no navegador o mesmo site que vai para o GitHub Pages:

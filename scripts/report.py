@@ -9,12 +9,12 @@ import json
 import re
 from pathlib import Path
 
+import dates
 from clipping import MDS, assess_day, clipping_text, excerpt, identifier
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / 'templates' / 'report.html'
 RULES = ROOT / 'docs' / 'regras.md'
-DAY_FILE = re.compile(r'^\d{4}-\d{2}-\d{2}\.json$')
 MANUAL_DATE = re.compile(r'DOU-\s*(\d{2})/(\d{2})/(\d{4})')
 # A cited act: [title](https://www.in.gov.br/[en/]web/dou/-/slug-123456789) followed by its description.
 MANUAL_ENTRY = re.compile(
@@ -23,11 +23,12 @@ MANUAL_ENTRY = re.compile(
 
 
 def index_days(data_dir):
-    return sorted(path.stem for path in Path(data_dir).glob('*.json') if DAY_FILE.match(path.name))
+    """The edition days with an index in data_dir, in date order."""
+    return sorted((path.stem for path in Path(data_dir).glob(f'{dates.GLOB}.json')), key=dates.parse)
 
 
 def load_manual_clippings(examples_dir):
-    """Map each edition date (YYYY-MM-DD) to its manual clipping files and the acts they cite.
+    """Map each edition date (DD-MM-AAAA) to its manual clipping files and the acts they cite.
 
     Each act is {'id', 'title', 'url', 'text'}, where text is the description the CGREGS wrote.
     """
@@ -37,7 +38,7 @@ def load_manual_clippings(examples_dir):
         match = MANUAL_DATE.search(text)
         if not match:
             continue
-        entry = clippings.setdefault(f'{match[3]}-{match[2]}-{match[1]}', {'sources': [], 'acts': {}})
+        entry = clippings.setdefault(f'{match[1]}-{match[2]}-{match[3]}', {'sources': [], 'acts': {}})
         entry['sources'].append(path.name)
         for title, url, act_id, description in MANUAL_ENTRY.findall(text):
             entry['acts'].setdefault(
@@ -102,7 +103,7 @@ def build_model(data_dir, examples_dir):
         day_manual = manual.get(day, {'sources': [], 'acts': {}})
         candidates = []
         assessed = assess_day(day, index, data_dir)
-        generated, _ = clipping_text(dt.date.fromisoformat(day), assessed)
+        generated, _ = clipping_text(dates.parse(day), assessed)
         for item in assessed:
             article, full_text = item['article'], item['full_text']
             act_id = identifier(article)
@@ -130,7 +131,9 @@ def build_model(data_dir, examples_dir):
         bodies = [manual_email(examples_dir, source) for source in day_manual['sources']]
         days.append(
             {
-                'date': day,
+                # The page script compares, sorts and splits dates as AAAA-MM-DD, and <input type="date">
+                # works in that format, so the model keeps it; the page shows and links them as DD-MM-AAAA.
+                'date': dates.parse(day).isoformat(),
                 'total': index.get('count', len(index['articles'])),
                 'candidates': candidates,
                 'manualSources': day_manual['sources'],
@@ -143,7 +146,8 @@ def build_model(data_dir, examples_dir):
     # Acts published after the clipping that cites them are located only after the full scan.
     for day in days:
         for missing in day['manualMissing']:
-            missing['located'] = located.get(missing['id'])
+            found = located.get(missing['id'])
+            missing['located'] = found and {**found, 'date': dates.parse(found['date']).isoformat()}
     rules = RULES.read_text(encoding='utf-8') if RULES.exists() else ''
     return {
         'generated': dt.datetime.now().astimezone().isoformat(timespec='seconds'),

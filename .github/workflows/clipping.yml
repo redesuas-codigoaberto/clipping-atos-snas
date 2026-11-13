@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       date:
-        description: 'Data da edição (AAAA-MM-DD); vazio = hoje'
+        description: 'Data da edição (DD-MM-AAAA); vazio = hoje'
         required: false
 
 permissions:
@@ -52,7 +52,8 @@ jobs:
           WAIT_SECONDS: 600
         run: |
           # Fix the date once, so that a retry after midnight still collects the same edition.
-          DATE=${DATE:-$(TZ=America/Sao_Paulo date +%F)}
+          DATE=${DATE:-$(TZ=America/Sao_Paulo date +%d-%m-%Y)}
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
           for attempt in $(seq "$ATTEMPTS"); do
             python scripts/daily.py --date "$DATE" && exit 0
             if [ "$attempt" -lt "$ATTEMPTS" ]; then
@@ -63,6 +64,8 @@ jobs:
           exit 1
 
       - name: Commit the clipping
+        env:
+          DATE: ${{ steps.collect.outputs.date }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -71,7 +74,14 @@ jobs:
           if git diff --cached --quiet; then
             echo 'No clipping changes'
           else
-            git commit -m "Clipping $(basename "$(git diff --cached --name-only | head -1)" .md)"
+            # Commit messages are in Portuguese (AGENTS.md). The DOU adjusts the day's total during the day,
+            # so a later run may change only data/.
+            day=${DATE//-//}
+            if git diff --cached --quiet -- clipping-novo; then
+              git commit -m "Atualiza os dados de $day"
+            else
+              git commit -m "Clipping de $day"
+            fi
             git push
           fi
 
@@ -81,7 +91,6 @@ jobs:
 
       - name: Build the site
         run: |
-          python scripts/build_site.py
           python scripts/report.py
 
       - uses: actions/configure-pages@v6

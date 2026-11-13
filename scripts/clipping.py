@@ -2,10 +2,11 @@
 """Write the SNAS clipping email for one DOU edition from the local index."""
 
 import argparse
-import datetime as dt
 import json
 import re
 from pathlib import Path
+
+import dates
 
 MDS = 'Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome'
 DIRECT_ORGS = (
@@ -181,11 +182,11 @@ def clipping_text(date, assessed):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('date', type=dt.date.fromisoformat, help='DOU edition date (YYYY-MM-DD)')
+    parser.add_argument('date', type=dates.argument, help='DOU edition date (DD-MM-AAAA)')
     parser.add_argument('--data-dir', type=Path, default=Path('data'))
     parser.add_argument('--output-dir', type=Path, default=Path('clipping-novo'))
     args = parser.parse_args()
-    day = args.date.isoformat()
+    day = dates.name(args.date)
     index_path = args.data_dir / f'{day}.json'
     index = json.loads(index_path.read_text(encoding='utf-8'))
     if index.get('date') != day:

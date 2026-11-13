@@ -5,12 +5,12 @@ that changed. The baseline numbers below may then go up; they should never have 
 """
 
 import collections
-import datetime as dt
 import json
 from pathlib import Path
 
 import pytest
 
+import dates
 from clipping import assess_day, clipping_text
 from report import build_model
 
@@ -19,7 +19,7 @@ DATA = ROOT / 'data'
 GENERATED = ROOT / 'clipping-novo'
 MANUAL = ROOT / 'clipping-antigo'
 
-# Agreement with the clippings the team sent, measured on 2026-11-12.
+# Agreement with the clippings the team sent, measured on 12-11-2026.
 MIN_IDENTICAL_EMAILS = 60
 MIN_SAME_ACTS_EMAILS = 101  # identical + same acts with other wording
 MIN_SENT_ACTS_SUGGESTED = 305  # of the 307 MDS acts the team sent
@@ -27,7 +27,7 @@ MIN_SENT_ACTS_SUGGESTED = 305  # of the 307 MDS acts the team sent
 
 def edition_days():
     days = []
-    for path in sorted(DATA.glob('????-??-??.json')):
+    for path in sorted(DATA.glob(f'{dates.GLOB}.json'), key=lambda path: dates.parse(path.stem)):
         if json.loads(path.read_text(encoding='utf-8'))['count']:
             days.append(path.stem)
     return days
@@ -53,20 +53,20 @@ def test_every_indexed_act_has_its_full_text(day):
 def test_no_full_text_is_left_without_its_index():
     indexed = {
         saved_text_path(path.stem, article)
-        for path in DATA.glob('????-??-??.json')
+        for path in DATA.glob(f'{dates.GLOB}.json')
         for article in json.loads(path.read_text(encoding='utf-8'))['articles']
     }
-    assert sorted(set(DATA.glob('????-??-??/*.md')) - indexed) == []
+    assert sorted(set(DATA.glob(f'{dates.GLOB}/*.md')) - indexed) == []
 
 
 def test_every_edition_has_a_clipping_and_nothing_else_does():
-    assert sorted(path.stem for path in GENERATED.glob('*.md')) == edition_days()
+    assert sorted(path.stem for path in GENERATED.glob('*.md')) == sorted(edition_days())
 
 
 @pytest.mark.parametrize('day', edition_days())
 def test_clipping_matches_the_current_rules(day):
     index = json.loads((DATA / f'{day}.json').read_text(encoding='utf-8'))
-    text, _ = clipping_text(dt.date.fromisoformat(day), assess_day(day, index, DATA))
+    text, _ = clipping_text(dates.parse(day), assess_day(day, index, DATA))
     assert text == (GENERATED / f'{day}.md').read_text(encoding='utf-8'), 'run `make regenerate` if the rule changed'
 
 

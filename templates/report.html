@@ -180,6 +180,10 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 const fmt = n => Number(n).toLocaleString('pt-BR');
 const pct = (a, b) => (b ? `${Math.round((100 * a) / b)}%` : '—');
 const brDate = iso => iso.split('-').reverse().join('/');
+// Links name days as DD-MM-AAAA, like the files; the model keeps AAAA-MM-DD, which sorts and compares as text.
+const linkDate = iso => iso.split('-').reverse().join('-');
+// Accepts both forms, so links shared before the switch to DD-MM-AAAA still open.
+const fromLink = s => (/^\d{2}-\d{2}-\d{4}$/.test(s || '') ? s.split('-').reverse().join('-') : s);
 const MONTHS = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 const WEEKDAYS = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
 const longDate = iso => { const d = new Date(`${iso}T12:00:00`); return `${WEEKDAYS[d.getDay()]}, ${d.getDate()} de ${MONTHS[d.getMonth()]}`; };
@@ -271,15 +275,15 @@ function viewDay(app, date, selectedId) {
     </div>`;
   document.documentElement.style.setProperty('--top', `${$('.top').offsetHeight}px`);
   $('.it.sel')?.scrollIntoView({ block: 'nearest' });
-  $('#prev').onclick = () => { location.hash = `dia/${dates[i - 1]}`; };
-  $('#next').onclick = () => { location.hash = `dia/${dates[i + 1]}`; };
-  $('#date').onchange = e => { location.hash = `dia/${e.target.value}`; };
+  $('#prev').onclick = () => { location.hash = `dia/${linkDate(dates[i - 1])}`; };
+  $('#next').onclick = () => { location.hash = `dia/${linkDate(dates[i + 1])}`; };
+  $('#date').onchange = e => { location.hash = `dia/${linkDate(e.target.value)}`; };
   $('.list').onclick = e => { const it = e.target.closest('.it[data-id]'); if (it) goBoard(date, it.dataset.id); };
   board = { app, date, order, selected, dates, i };
 }
 // Synchronous navigation inside the board, so fast keystrokes never act on a stale selection.
 function goBoard(date, id) {
-  history.pushState(null, '', `#dia/${date}/${id}`);
+  history.pushState(null, '', `#dia/${linkDate(date)}/${id}`);
   viewDay(board.app, date, id);
 }
 function docHtml(c) {
@@ -291,7 +295,7 @@ function docHtml(c) {
 function missingHtml(m, date) {
   const where = !m.located ? 'O ato não aparece em nenhum índice coletado.'
     : m.located.date === date ? 'O ato está no índice deste dia, mas não é do MDS, por isso não foi avaliado pela regra.'
-      : `O ato foi publicado em <a href="#dia/${m.located.date}/${m.id}">${brDate(m.located.date)}</a>.`;
+      : `O ato foi publicado em <a href="#dia/${linkDate(m.located.date)}/${m.id}">${brDate(m.located.date)}</a>.`;
   return `<div class="doc"><h2>${esc(m.title || m.located?.title || m.id)}</h2>
     <div class="meta">${esc(m.located?.organization || '')} · <a href="${esc(m.url || '#')}" target="_blank" rel="noopener">abrir no DOU ↗</a></div>
     <p>${where}</p></div>`;
@@ -315,8 +319,8 @@ document.addEventListener('keydown', e => {
   const actions = {
     j: () => order[pos + 1] && goBoard(date, order[pos + 1].id),
     k: () => order[pos - 1] && goBoard(date, order[pos - 1].id),
-    '[': () => i > 0 && (location.hash = `dia/${dates[i - 1]}`),
-    ']': () => i < dates.length - 1 && (location.hash = `dia/${dates[i + 1]}`),
+    '[': () => i > 0 && (location.hash = `dia/${linkDate(dates[i - 1])}`),
+    ']': () => i < dates.length - 1 && (location.hash = `dia/${linkDate(dates[i + 1])}`),
   };
   if (actions[e.key]) { e.preventDefault(); actions[e.key](); }
 });
@@ -401,7 +405,7 @@ function viewYear(app) {
         .map(u => `<option${u === yearState.unit ? ' selected' : ''}>${esc(u)}</option>`).join('')}</select>
       ${yearState.cat ? `<button id="clearcat">${dot(yearState.cat)}${CATS[yearState.cat][0]} ✕</button>` : ''}</div>
     <div id="results"></div>
-    <p class="muted" style="margin-top:40px;font-size:12px">Gerado em ${M.generated.slice(0, 16).replace('T', ' ')}.</p>
+    <p class="muted" style="margin-top:40px;font-size:12px">Gerado em ${brDate(M.generated.slice(0, 10))} ${M.generated.slice(11, 16)}.</p>
   </div>`;
   const search = () => {
     const terms = yearState.query.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -413,7 +417,7 @@ function viewYear(app) {
       return terms.every(t => hay.includes(t));
     }).sort((a, b) => (a.day.date < b.day.date ? 1 : -1));
     $('#results').innerHTML = `<p class="muted">${fmt(hits.length)} atos${hits.length > 200 ? ', mostrando os 200 mais recentes' : ''}</p>
-      <table>${hits.slice(0, 200).map(({ day, x, cat }) => `<tr class="go" data-go="dia/${day.date}/${x.id}"><td>${dot(cat)}</td>
+      <table>${hits.slice(0, 200).map(({ day, x, cat }) => `<tr class="go" data-go="dia/${linkDate(day.date)}/${x.id}"><td>${dot(cat)}</td>
         <td>${esc(x.title || x.located?.title || x.id)}<div class="muted">${esc(x.manualText || x.text || x.excerpt || '')}</div></td>
         <td>${esc(x.unit || '')}</td><td class="n">${brDate(day.date)}</td></tr>`).join('')}</table>`;
   };
@@ -437,7 +441,7 @@ function viewYear(app) {
   heat.addEventListener('mouseleave', () => { tip.hidden = true; });
   app.onclick = e => {
     const cell = e.target.closest('rect.d');
-    if (cell) location.hash = `dia/${cell.dataset.date}`;
+    if (cell) location.hash = `dia/${linkDate(cell.dataset.date)}`;
     const catRow = e.target.closest('tr[data-cat]');
     if (catRow) {
       yearState.cat = yearState.cat === catRow.dataset.cat ? '' : catRow.dataset.cat;
@@ -554,7 +558,7 @@ function viewSummaries(app) {
   const shown = items.filter(it => (summaryState.filter === 'all' || (summaryState.filter === 'same') === it.same)
     && (!summaryState.type || (it.c.type || '(sem tipo)') === summaryState.type)).sort((a, b) => (a.day.date < b.day.date ? 1 : -1));
   const card = it => {
-    const head = `<div class="head"><a href="#dia/${it.day.date}/${it.c.id}">${esc(it.c.title)}</a><span class="muted">${esc(it.c.type)} · ${brDate(it.day.date)}</span></div>`;
+    const head = `<div class="head"><a href="#dia/${linkDate(it.day.date)}/${it.c.id}">${esc(it.c.title)}</a><span class="muted">${esc(it.c.type)} · ${brDate(it.day.date)}</span></div>`;
     if (it.same) return `<div class="pair" data-i="${shown.indexOf(it)}">${head}<div class="one"><span class="dot" style="background:var(--hit)"></span>${esc(it.manual)}</div></div>`;
     const d = wordDiff(it.manual, it.c.excerpt);
     return `<div class="pair" data-i="${shown.indexOf(it)}">${head.replace('</span></div>', ` · ${d.common}% das palavras em comum</span></div>`)}
@@ -633,7 +637,7 @@ function openSelections(it) {
   el.innerHTML = `<div class="abox">
     <div class="ahead"><div><b>${esc(it.c.title)}</b>
       <div class="muted">${esc(it.c.type)} · ${brDate(it.day.date)} · ${it.same ? 'resumos idênticos' : 'resumos diferentes'} ·
-        <a href="${esc(it.c.url)}" target="_blank" rel="noopener">abrir no DOU ↗</a> · <a href="#dia/${it.day.date}/${it.c.id}">ver na Análise dia</a></div></div>
+        <a href="${esc(it.c.url)}" target="_blank" rel="noopener">abrir no DOU ↗</a> · <a href="#dia/${linkDate(it.day.date)}/${it.c.id}">ver na Análise dia</a></div></div>
       <button title="Fechar (Esc)">×</button></div>
     <div class="acols">${side('Seleção da equipe (clipping manual)', 'sel-m', it.manual)}${side('Seleção do programa', 'sel-a', it.c.excerpt)}</div>
   </div>`;
@@ -693,11 +697,12 @@ function viewClipping(app, date) {
     <div class="emails${only ? ' single' : ''}">
       ${only ? '' : manual}
       <div><h3>Gerado automaticamente <button id="copy">Copiar</button><span id="copied" class="muted"></span></h3>
+        <p class="muted">A seleção procura nomes e expressões, sem interpretar o assunto do ato: confira antes de usar.</p>
         <div class="email" id="generated">${renderMarkdown(day.clipping)}</div></div>
     </div>`;
-  $('#prev').onclick = () => { location.hash = `clipping/${dates[i - 1]}`; };
-  $('#next').onclick = () => { location.hash = `clipping/${dates[i + 1]}`; };
-  $('#date').onchange = e => { location.hash = `clipping/${e.target.value}`; };
+  $('#prev').onclick = () => { location.hash = `clipping/${linkDate(dates[i - 1])}`; };
+  $('#next').onclick = () => { location.hash = `clipping/${linkDate(dates[i + 1])}`; };
+  $('#date').onchange = e => { location.hash = `clipping/${linkDate(e.target.value)}`; };
   $('#copy').onclick = () => copyEmail($('#generated'), day.clipping);
 }
 
@@ -707,7 +712,8 @@ function viewRules(app) {
 
 /* ---------- routing and theme ---------- */
 function route() {
-  const [view = '', ...rest] = decodeURIComponent(location.hash.slice(1)).split('/');
+  const [view = '', ...link] = decodeURIComponent(location.hash.slice(1)).split('/');
+  const rest = [fromLink(link[0]), ...link.slice(1)];
   const fresh = Object.assign(document.createElement('main'), { id: 'app' });
   $('#app').replaceWith(fresh);
   board = null;

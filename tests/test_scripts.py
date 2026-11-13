@@ -1,17 +1,20 @@
 """The helpers of the other scripts: download retries, article parsing, pages, report and daily run."""
 
+import argparse
 import datetime as dt
 import io
+import json
 import urllib.error
 
 import pytest
 
 import daily
+import dates
 import dou_fetch
 from add_manual import sanitize
-from build_site import inline, to_html
 from report import compare_emails, email_key, load_manual_clippings
 from save_articles import ArticleParser
+from scrape import parse_index
 
 # --- dou_fetch ---
 
@@ -84,19 +87,6 @@ def test_article_parser_keeps_only_the_dou_text():
     assert parser.blocks == ['## PORTARIA Nº 1', 'Art. 1º Aprovar\xa0o plano.', 'Município | UF', '- item']
 
 
-# --- site ---
-
-
-def test_inline_renders_bold_and_links_and_escapes_html():
-    assert inline('**Data** <b> [Ato](https://x/?a=1&b=2)') == (
-        '<strong>Data</strong> &lt;b&gt; <a href="https://x/?a=1&amp;b=2">Ato</a>'
-    )
-
-
-def test_each_paragraph_becomes_a_p():
-    assert to_html('um\n\n\ndois\n') == '<p>um</p>\n<p>dois</p>'
-
-
 # --- add_manual ---
 
 
@@ -118,8 +108,8 @@ ACT = '[PORTARIA Nº 1](https://www.in.gov.br/web/dou/-/portaria-n-1-123456789)'
 def test_manual_clippings_are_keyed_by_edition_date(tmp_path):
     (tmp_path / 'a.md').write_text(f'# Clipping DOU- 05/01/2026\n\n---\n\n{ACT}: Aprova o plano.\n', encoding='utf-8')
     clippings = load_manual_clippings(tmp_path)
-    assert list(clippings) == ['2026-01-05']
-    assert clippings['2026-01-05']['acts']['123456789']['text'] == 'Aprova o plano.'
+    assert list(clippings) == ['05-01-2026']
+    assert clippings['05-01-2026']['acts']['123456789']['text'] == 'Aprova o plano.'
 
 
 def test_email_key_ignores_formatting():
@@ -166,3 +156,50 @@ def test_output_is_written_only_on_github_actions(tmp_path, monkeypatch):
     monkeypatch.setenv('GITHUB_OUTPUT', str(output))
     daily.write_output('warning', 'sem atos')
     assert output.read_text(encoding='utf-8') == 'warning=sem atos\n'
+
+
+# --- scrape ---
+
+
+def reading_page(date_url, articles):
+    """A trimmed DOU reading page: the real one embeds the same script element among the site's markup."""
+    params = {'dateUrl': date_url, 'section': 'do1', 'jsonArray': articles, 'typeNormDay': {}}
+    return (
+        '<html><body><div id="portlet">...</div>\n'
+        '<script id="params" type="application/json">\n'
+        f'{json.dumps(params, ensure_ascii=False)}\n'
+        '</script>\n<script>var other = 1;</script></body></html>'
+    )
+
+
+def test_parse_index_reads_the_embedded_articles():
+    articles = [{'title': 'PORTARIA Nº 1', 'urlTitle': 'portaria-n-1-123456789', 'hierarchyList': ['MDS']}]
+    assert parse_index(reading_page('12-11-2026', articles), dt.date(2026, 11, 12)) == articles
+
+
+def test_parse_index_rejects_another_date():
+    with pytest.raises(RuntimeError, match='Unexpected date'):
+        parse_index(reading_page('11-11-2026', []), dt.date(2026, 11, 12))
+
+
+def test_parse_index_rejects_a_page_without_article_data():
+    with pytest.raises(RuntimeError, match='No article data'):
+        parse_index('<html><body>Manutenção</body></html>', dt.date(2026, 11, 12))
+
+
+# --- dates ---
+
+
+def test_dates_use_the_brazilian_order():
+    assert dates.name(dt.date(2026, 11, 2)) == '02-11-2026'
+    assert dates.parse('02-11-2026') == dt.date(2026, 11, 2)
+
+
+def test_dates_reject_the_iso_order():
+    with pytest.raises(ValueError):
+        dates.parse('2026-11-02')
+
+
+def test_date_arguments_explain_the_format():
+    with pytest.raises(argparse.ArgumentTypeError, match='DD-MM-AAAA'):
+        dates.argument('2026-11-02')

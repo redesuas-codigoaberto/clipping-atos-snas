@@ -15,6 +15,8 @@ import sys
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import dates
+
 HERE = Path(__file__).resolve().parent
 
 
@@ -30,7 +32,7 @@ def no_edition_warning(day):
     """
     if day.weekday() >= 5:
         return None
-    return f'{day.isoformat()}: no DOU articles on a weekday; check whether it was a holiday or the site changed'
+    return f'{dates.name(day)}: no DOU articles on a weekday; check whether it was a holiday or the site changed'
 
 
 def selected_count(clipping_path):
@@ -57,11 +59,11 @@ def write_summary(lines):
 def main():
     today = dt.datetime.now(ZoneInfo('America/Sao_Paulo')).date()
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--date', type=dt.date.fromisoformat, default=today)
+    parser.add_argument('--date', type=dates.argument, default=today)
     parser.add_argument('--data-dir', type=Path, default=Path('data'))
     parser.add_argument('--output-dir', type=Path, default=Path('clipping-novo'))
     args = parser.parse_args()
-    day = args.date.isoformat()
+    day = dates.name(args.date)
     run('scrape.py', '--date', day, '--output-dir', str(args.data_dir))
     index_path = args.data_dir / f'{day}.json'
     index = json.loads(index_path.read_text(encoding='utf-8'))

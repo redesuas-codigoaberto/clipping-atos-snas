@@ -11,8 +11,8 @@ help: ## List the available targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
 
 # Same build steps as "Build the site" in .github/workflows/clipping.yml.
-site: ## Build the clipping pages and the report in site/
-	$(PYTHON) scripts/build_site.py
+site: ## Build the pages (index.html and relatorio.html) in site/
+	rm -rf site
 	$(PYTHON) scripts/report.py
 
 serve: site ## Build site/ and serve it at http://localhost:$(PORT)/
@@ -20,7 +20,7 @@ serve: site ## Build site/ and serve it at http://localhost:$(PORT)/
 	$(PYTHON) -m http.server $(PORT) --bind 127.0.0.1 --directory site
 
 regenerate: ## Rewrite clipping-novo/ from data/ with the current rules (after a rule change)
-	@for index in data/????-??-??.json; do \
+	@for index in data/??-??-????.json; do \
 		day=$$(basename $$index .json); \
 		if $(PYTHON) -c "import json, sys; sys.exit(not json.load(open('$$index'))['count'])"; then \
 			$(PYTHON) scripts/clipping.py $$day > /dev/null || exit 1; \
