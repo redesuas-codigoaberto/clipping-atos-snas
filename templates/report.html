@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipping DOU · SNAS</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f8fa; --fg: #1f2328; --fg2: #656d76; --line: #d8dee4;
+  --accent: #0969da; --hit: #1a7f37; --miss: #cf222e; --out: #8250df; --extra: #bf8700; --none: #afb8c1;
+  --mark: #fff1a8; --empty: #ebedf0;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --fg2: #8d96a0; --line: #30363d;
+  --accent: #4493f8; --hit: #3fb950; --miss: #f85149; --out: #ab7df8; --extra: #d29922; --none: #484f58;
+  --mark: #5c4a00; --empty: #1c2128;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --fg2: #8d96a0; --line: #30363d;
+    --accent: #4493f8; --hit: #3fb950; --miss: #f85149; --out: #ab7df8; --extra: #d29922; --none: #484f58;
+    --mark: #5c4a00; --empty: #1c2128;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg);
+  font: 14px/1.55 -apple-system, "Segoe UI", system-ui, Roboto, Arial, sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button, input, select { font: inherit; color: inherit; }
+button { background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; padding: 4px 12px; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--fg2); }
+button:disabled { opacity: .4; cursor: default; }
+input, select { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; }
+.muted { color: var(--fg2); }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; flex: none; }
+.bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 20px; height: 46px;
+  padding: 0 18px; border-bottom: 1px solid var(--line); background: var(--bg); }
+.bar nav a { color: var(--fg2); padding: 12px 2px; margin-right: 14px; border-bottom: 2px solid transparent; }
+.bar nav a.on { color: var(--fg); border-bottom-color: var(--accent); font-weight: 600; text-decoration: none; }
+.bar .brand { color: var(--fg); font-weight: 600; text-decoration: none; }
+.bar #theme { margin-left: auto; border: 0; background: none; color: var(--fg2); }
+.loading { padding: 40px; text-align: center; color: var(--fg2); }
+
+/* day */
+.top { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--line); }
+.top h1 { font-size: 15px; margin: 0 0 0 8px; font-weight: 600; }
+.top .right { margin-left: auto; }
+.board { display: grid; grid-template-columns: 340px minmax(0, 1fr) 340px; height: calc(100vh - 46px - var(--top, 53px)); }
+.board > section { overflow: auto; }
+.list { border-right: 1px solid var(--line); }
+.grp { display: flex; align-items: center; padding: 14px 16px 4px; font-size: 12px; font-weight: 600; color: var(--fg2); }
+.it { padding: 7px 16px 7px 32px; cursor: pointer; border-left: 3px solid transparent; }
+.it:hover { background: var(--bg2); }
+.it.sel { background: var(--bg2); border-left-color: var(--accent); }
+.it .tt { font-size: 13px; }
+.it .oo { font-size: 12px; color: var(--fg2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.doc { padding: 20px 32px 60px; max-width: 860px; }
+.doc h2 { font-size: 17px; margin: 0 0 4px; }
+.doc .meta { color: var(--fg2); font-size: 12px; margin-bottom: 18px; }
+.doc p { margin: 0 0 10px; white-space: pre-wrap; }
+.doc h4 { margin: 14px 0 8px; font-size: 14px; }
+.doc .cells { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); margin: 0 0 12px; font-size: 12px; }
+.doc .cells span { background: var(--bg); padding: 4px 6px; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; }
+.side { border-left: 1px solid var(--line); padding: 20px 18px; font-size: 13px; }
+.side .cat { display: flex; align-items: center; font-weight: 600; font-size: 14px; margin-bottom: 18px; }
+.side h3 { font-size: 12px; color: var(--fg2); font-weight: 600; margin: 18px 0 4px; }
+.side blockquote { margin: 4px 0; padding: 6px 10px; border-left: 3px solid var(--line); background: var(--bg2); }
+.side ul { margin: 2px 0; padding-left: 18px; }
+
+/* year */
+.page { max-width: 1100px; margin: 0 auto; padding: 24px 18px 60px; }
+.page h2 { font-size: 15px; margin: 36px 0 10px; }
+.page h2:first-child { margin-top: 0; }
+.lead { color: var(--fg2); margin: 0 0 14px; }
+.heat svg { display: block; max-width: 100%; height: auto; }
+.heat rect.d { cursor: pointer; }
+.heat rect.d:hover { stroke: var(--fg); }
+.legend { font-size: 12px; color: var(--fg2); display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+.daytip { position: fixed; z-index: 10; pointer-events: none; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 12px; font-size: 13px; box-shadow: 0 4px 14px rgba(0,0,0,.15); min-width: 240px; }
+.daytip b { display: block; margin-bottom: 4px; }
+.daytip .sit { display: flex; align-items: center; margin-bottom: 6px; }
+.daytip table td { border: 0; padding: 1px 0; }
+.daytip table td.n { padding-left: 12px; }
+.daytip .muted { font-size: 12px; margin-top: 6px; }
+.legend i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; vertical-align: -1px; margin-right: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+td, th { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--fg2); font-size: 12px; }
+td.n, th.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+tr.go { cursor: pointer; }
+tr.go:hover td { background: var(--bg2); }
+tr.on td { background: var(--bg2); font-weight: 600; }
+.filters { display: flex; gap: 8px; margin: 10px 0; }
+#q { flex: 1; padding: 7px 12px; }
+.filters select { max-width: 340px; }
+
+/* rules */
+.prose { max-width: 820px; margin: 0 auto; padding: 28px 18px 60px; font-size: 15px; line-height: 1.65; }
+.prose h1 { font-size: 22px; margin: 0 0 16px; }
+.prose h2 { font-size: 17px; margin: 34px 0 10px; }
+.prose h3 { font-size: 15px; margin: 24px 0 8px; }
+.prose blockquote { margin: 0 0 12px; padding: 10px 14px; border-left: 3px solid var(--line); background: var(--bg2); border-radius: 0 6px 6px 0; font-size: 14px; }
+.prose blockquote p:last-child { margin-bottom: 0; }
+.prose blockquote strong { background: var(--mark); font-weight: 600; }
+.prose p { margin: 0 0 12px; }
+.prose ul, .prose ol { margin: 0 0 12px; padding-left: 24px; }
+.prose li { margin-bottom: 4px; }
+.prose li > ul, .prose li > ol { margin: 4px 0 0; }
+.prose table { margin: 6px 0 16px; font-size: 14px; }
+.prose code { font: 13px ui-monospace, monospace; background: var(--bg2); padding: 1px 4px; border-radius: 4px; }
+
+/* summaries */
+.chips { display: flex; gap: 6px; margin: 14px 0; flex-wrap: wrap; }
+.chips button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chips.types { margin-top: 0; }
+
+/* clipping emails */
+.emails { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 18px; max-width: 1400px; margin: 0 auto; }
+.emails h3 { font-size: 13px; color: var(--fg2); margin: 0 0 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; height: 30px; }
+.email { border: 1px solid var(--line); border-radius: 8px; padding: 18px 22px; font-size: 14px; line-height: 1.6; }
+.email p { margin: 0 0 12px; }
+.email.empty { color: var(--fg2); }
+.badge { display: inline-flex; align-items: center; font-size: 13px; }
+.emails.single { grid-template-columns: minmax(0, 800px); justify-content: center; }
+@media (max-width: 1000px) { .emails { grid-template-columns: 1fr; } }
+.chips.types button { font-size: 12px; padding: 2px 9px; border-radius: 12px; }
+.pair { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; }
+.pair .head { padding: 8px 12px; border-bottom: 1px solid var(--line); font-size: 13px; display: flex; gap: 10px; align-items: baseline; }
+.pair .head .muted { margin-left: auto; white-space: nowrap; }
+.pair[data-i] { cursor: pointer; }
+.pair[data-i]:hover { border-color: var(--fg2); }
+.amodal { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; }
+.abox { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; width: 96vw; height: 92vh; display: flex; flex-direction: column; }
+.ahead { display: flex; gap: 16px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.ahead .muted { font-size: 12px; margin-top: 2px; }
+.ahead button { margin-left: auto; font-size: 18px; line-height: 1; padding: 4px 10px; }
+.acols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.acols > section { display: flex; flex-direction: column; min-height: 0; }
+.acols > section + section { border-left: 1px solid var(--line); }
+.acols h4 { margin: 0; padding: 10px 16px; font-size: 13px; border-bottom: 1px solid var(--line); }
+.acols .note { margin: 10px 16px 0; padding: 8px 10px; font-size: 13px; background: var(--bg2); border-radius: 6px; }
+.atext { flex: 1; overflow: auto; padding: 12px 16px 40px; font-size: 13px; line-height: 1.6; }
+.atext p { margin: 0 0 10px; white-space: pre-wrap; }
+mark.sel-m { background: color-mix(in srgb, var(--extra) 35%, transparent); }
+mark.sel-a { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+.pair .cols { display: grid; grid-template-columns: 1fr 1fr; }
+.pair .cols > div { padding: 10px 12px; font-size: 13px; line-height: 1.6; }
+.pair .cols > div + div { border-left: 1px solid var(--line); }
+.pair .cols h4 { margin: 0 0 4px; font-size: 12px; color: var(--fg2); font-weight: 600; }
+.pair .one { padding: 10px 12px; font-size: 13px; line-height: 1.6; }
+.only-m { background: color-mix(in srgb, var(--extra) 30%, transparent); border-radius: 3px; }
+.only-a { background: color-mix(in srgb, var(--accent) 25%, transparent); border-radius: 3px; }
+.legend-inline { font-size: 12px; color: var(--fg2); }
+.legend-inline span { padding: 0 4px; margin-right: 10px; }
+/* clipping-only page (index.html): the other tabs are hidden */
+body[data-only] #tabs a:not([data-v="clipping"]) { display: none; }
+@media (max-width: 1000px) { .board { grid-template-columns: 280px minmax(0, 1fr); height: auto; } .side { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); } }
+</style>
+</head>
+<body data-only="__ONLY__">
+<header class="bar">
+  <a href="#ano" class="brand" title="Ir para Análise ano">Clipping DOU · SNAS</a>
+  <nav id="tabs"><a href="#ano" data-v="ano">Análise ano</a><a href="#regras" data-v="regras">Regras</a><a href="#clipping" data-v="clipping">Clipping</a><a href="#resumos" data-v="resumos">Comparativo resumos</a><a href="#dia" data-v="dia">Análise dia</a></nav>
+  <button id="theme" title="Tema">◐</button>
+</header>
+<script>if (!document.body.dataset.only || document.body.dataset.only.startsWith('__')) delete document.body.dataset.only; else document.querySelector('.brand').href = '#clipping';</script>
+<main id="app"><p class="loading">Carregando…</p></main>
+<script type="application/octet-stream" id="model">__MODEL__</script>
+<script>
+'use strict';
+const $ = (selector, root = document) => root.querySelector(selector);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = n => Number(n).toLocaleString('pt-BR');
+const pct = (a, b) => (b ? `${Math.round((100 * a) / b)}%` : '—');
+const brDate = iso => iso.split('-').reverse().join('/');
+const MONTHS = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+const WEEKDAYS = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+const longDate = iso => { const d = new Date(`${iso}T12:00:00`); return `${WEEKDAYS[d.getDay()]}, ${d.getDate()} de ${MONTHS[d.getMonth()]}`; };
+const REASONS = {
+  'mentions SNAS': 'menciona SNAS', 'mentions CNAS': 'menciona CNAS', 'mentions SUAS': 'menciona SUAS', 'mentions SUAS by name': 'menciona o Sistema Único de Assistência Social',
+  'mentions the national secretariat': 'menciona a Secretaria Nacional de Assistência Social',
+  'mentions social protection': 'menciona proteção social básica/especial',
+  'no direct SNAS relevance signal': 'sem relação direta com a SNAS',
+};
+const reasonLabel = r => (r.startsWith('organization: ') ? `publicado por ${r.slice(14)}` : (REASONS[r] || r));
+
+/* Situation of an act: the rule's suggestion crossed with the manual clipping of the same day. */
+const CATS = {
+  hit: ['Enviados e sugeridos pela regra', 'var(--hit)'],
+  miss: ['Enviados, mas não sugeridos pela regra', 'var(--miss)'],
+  out: ['Enviados, mas fora dos atos coletados no dia', 'var(--out)'],
+  extra: ['Sugeridos pela regra, mas não enviados', 'var(--extra)'],
+  sug: ['Sugeridos pela regra (dia sem clipping manual)', 'var(--accent)'],
+};
+const SENT = ['hit', 'miss', 'out', 'extra'];
+const dot = cat => `<span class="dot" style="background:${CATS[cat][1]}"></span>`;
+function category(c, day) {
+  const suggested = c.suggestion === 'suggest';
+  if (!day.hasManual) return suggested ? 'sug' : 'none';
+  if (c.manual) return suggested ? 'hit' : 'miss';
+  return suggested ? 'extra' : 'none';
+}
+
+let M = null;
+const byDate = new Map();
+const acts = [];
+let board = null;
+const yearState = { query: '', cat: '', unit: '' };
+
+async function loadModel() {
+  const bytes = Uint8Array.from(atob($('#model').textContent.trim()), c => c.charCodeAt(0));
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+  return new Response(stream).json();
+}
+
+/* ---------- act text: literal text, flattened DOU tables as a cell grid ---------- */
+const TERMS = /\b(?:SNAS|CNAS|SUAS)\b|Secretaria Nacional de Assistência Social|proteção social (?:básica|especial)/gi;
+const highlight = html => html.replace(TERMS, m => (m.length === 4 && m !== m.toUpperCase() ? m : `<mark>${m}</mark>`));
+function renderAct(markdown) {
+  const blocks = markdown.replace(/\r/g, '').split(/\n[ \t]*\n/).map(b => b.trim()).filter(Boolean);
+  while (blocks.length && /^(#+ |(Source|Date|Section|Organization):)/.test(blocks[0])) blocks.shift();
+  const pipe = b => b === '|';
+  const out = [];
+  let cells = null;
+  const flush = () => { if (cells) out.push(`<div class="cells">${cells.map(c => `<span>${highlight(esc(c))}</span>`).join('')}</div>`); cells = null; };
+  blocks.forEach((block, i) => {
+    if (pipe(block)) return;
+    if (i > 0 && pipe(blocks[i - 1]) && pipe(blocks[i + 1] ?? '')) { (cells ||= []).push(block); return; }
+    flush();
+    const heading = block.match(/^#{1,6}\s+(.*)$/s);
+    out.push(heading ? `<h4>${highlight(esc(heading[1]))}</h4>` : `<p>${highlight(esc(block))}</p>`);
+  });
+  flush();
+  return out.join('');
+}
+
+/* ---------- day ---------- */
+function viewDay(app, date, selectedId) {
+  const dates = M.days.map(d => d.date);
+  if (!byDate.has(date)) date = dates.filter(d => d <= (date || '9999')).pop() || dates[dates.length - 1];
+  const day = byDate.get(date);
+  const groups = {};
+  for (const c of day.candidates) (groups[c.cat] ||= []).push(c);
+  if (day.manualMissing.length) groups.out = day.manualMissing;
+  const order = Object.keys(CATS).flatMap(cat => groups[cat] || []);
+  const selected = order.find(x => x.id === selectedId) || order[0];
+  const i = dates.indexOf(date);
+  const item = x => `<div class="it${x === selected ? ' sel' : ''}" data-id="${x.id}"><div class="tt">${esc(x.title || x.located?.title || x.id)}</div>
+    <div class="oo">${esc(x.unit || (x.located ? `publicado em ${brDate(x.located.date)}` : 'não encontrado nos índices'))}</div></div>`;
+  app.innerHTML = `
+    <div class="top">
+      <button id="prev" ${i <= 0 ? 'disabled' : ''} title="Dia anterior ([)">‹</button>
+      <input type="date" id="date" value="${date}" min="${dates[0]}" max="${dates[dates.length - 1]}">
+      <button id="next" ${i >= dates.length - 1 ? 'disabled' : ''} title="Próximo dia (])">›</button>
+      <h1>${longDate(date)}</h1>
+      <span class="right muted">${day.hasManual ? `clipping manual: ${esc(day.manualSources.join(', '))}` : 'sem clipping manual nesta data'}</span>
+    </div>
+    <div class="board">
+      <section class="list">${Object.keys(CATS).filter(cat => groups[cat]).map(cat =>
+        `<div class="grp">${dot(cat)}${CATS[cat][0]} (${groups[cat].length})</div>${groups[cat].map(item).join('')}`).join('') || '<p class="muted" style="padding:16px">Nenhum ato sugerido pela regra ou enviado no clipping manual.</p>'}
+      </section>
+      <section>${!selected ? '' : selected.cat ? docHtml(selected) : missingHtml(selected, date)}</section>
+      <section class="side">${selected ? sideHtml(day, selected) : ''}</section>
+    </div>`;
+  document.documentElement.style.setProperty('--top', `${$('.top').offsetHeight}px`);
+  $('.it.sel')?.scrollIntoView({ block: 'nearest' });
+  $('#prev').onclick = () => { location.hash = `dia/${dates[i - 1]}`; };
+  $('#next').onclick = () => { location.hash = `dia/${dates[i + 1]}`; };
+  $('#date').onchange = e => { location.hash = `dia/${e.target.value}`; };
+  $('.list').onclick = e => { const it = e.target.closest('.it[data-id]'); if (it) goBoard(date, it.dataset.id); };
+  board = { app, date, order, selected, dates, i };
+}
+// Synchronous navigation inside the board, so fast keystrokes never act on a stale selection.
+function goBoard(date, id) {
+  history.pushState(null, '', `#dia/${date}/${id}`);
+  viewDay(board.app, date, id);
+}
+function docHtml(c) {
+  const text = M.texts[c.id] || '';
+  return `<div class="doc"><h2>${esc(c.title)}</h2>
+    <div class="meta">${esc(c.section)}${c.page ? `, p. ${esc(c.page)}` : ''} · ${esc(c.org)} · <a href="${esc(c.url)}" target="_blank" rel="noopener">abrir no DOU ↗</a></div>
+    ${c.full ? renderAct(text) : `<p class="muted">Trecho do índice do DOU (texto integral não baixado):</p><p>${highlight(esc(text))}</p>`}</div>`;
+}
+function missingHtml(m, date) {
+  const where = !m.located ? 'O ato não aparece em nenhum índice coletado.'
+    : m.located.date === date ? 'O ato está no índice deste dia, mas não é do MDS, por isso não foi avaliado pela regra.'
+      : `O ato foi publicado em <a href="#dia/${m.located.date}/${m.id}">${brDate(m.located.date)}</a>.`;
+  return `<div class="doc"><h2>${esc(m.title || m.located?.title || m.id)}</h2>
+    <div class="meta">${esc(m.located?.organization || '')} · <a href="${esc(m.url || '#')}" target="_blank" rel="noopener">abrir no DOU ↗</a></div>
+    <p>${where}</p></div>`;
+}
+function sideHtml(day, x) {
+  const cat = x.cat || 'out';
+  const date = brDate(day.date);
+  let manual;
+  if (!day.hasManual) manual = '<p class="muted">Não há clipping manual desta data.</p>';
+  else if (cat === 'out' || x.manual) manual = `<p>Consta no clipping de ${date}${x.manualText || x.text ? ' com esta descrição:' : '.'}</p>${x.manualText || x.text ? `<blockquote>${esc(x.manualText || x.text)}</blockquote>` : ''}`;
+  else manual = `<p>Não consta no clipping de ${date}.</p>`;
+  const rule = cat === 'out' ? '<p class="muted">O ato não estava entre os atos avaliados pela regra neste dia.</p>'
+    : `<p><b>${x.suggestion === 'suggest' ? 'Sugerido' : 'Não sugerido'}</b></p><ul>${x.reasons.map(r => `<li>${esc(reasonLabel(r))}</li>`).join('')}</ul>
+      ${x.suggestion === 'suggest' ? `<h3>Resumo automático</h3><blockquote>${esc(x.excerpt)}</blockquote>` : ''}`;
+  return `<div class="cat">${dot(cat)}${CATS[cat][0]}</div><h3>Clipping manual</h3>${manual}<h3>Regra automática</h3>${rule}`;
+}
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input') || e.ctrlKey || e.metaKey || e.altKey || !board) return;
+  const { date, order, selected, dates, i } = board;
+  const pos = order.indexOf(selected);
+  const actions = {
+    j: () => order[pos + 1] && goBoard(date, order[pos + 1].id),
+    k: () => order[pos - 1] && goBoard(date, order[pos - 1].id),
+    '[': () => i > 0 && (location.hash = `dia/${dates[i - 1]}`),
+    ']': () => i < dates.length - 1 && (location.hash = `dia/${dates[i + 1]}`),
+  };
+  if (actions[e.key]) { e.preventDefault(); actions[e.key](); }
+});
+
+/* ---------- year ---------- */
+function daySituation(day) {
+  if (!day.hasManual) return 'nomanual';
+  const cats = day.candidates.map(c => c.cat);
+  if (cats.includes('miss')) return 'miss';
+  if (cats.includes('extra')) return 'extra';
+  return 'hit';
+}
+const DAY_COLORS = { hit: 'var(--hit)', extra: 'var(--extra)', miss: 'var(--miss)', nomanual: 'var(--none)' };
+const DAY_LABELS = { hit: 'regra igual ao clipping', extra: 'regra sugeriu atos não enviados', miss: 'clipping enviou ato não sugerido', nomanual: 'sem clipping manual' };
+function dayTip(iso) {
+  const day = byDate.get(iso);
+  const d = new Date(`${iso}T12:00:00`);
+  const head = `<b>${brDate(iso)} (${WEEKDAYS[d.getDay()]})</b>`;
+  if (!day) return `${head}<div class="muted" style="margin:0">Sem edição do DOU coletada.</div>`;
+  const sit = daySituation(day);
+  const count = cat => day.candidates.filter(c => c.cat === cat).length + (cat === 'out' ? day.manualMissing.length : 0);
+  const rows = (day.hasManual ? ['hit', 'miss', 'out', 'extra'] : ['sug']).filter(cat => count(cat) > 0 || cat !== 'out')
+    .map(cat => `<tr><td>${dot(cat)}${CATS[cat][0]}</td><td class="n">${count(cat)}</td></tr>`).join('');
+  return `${head}<div class="sit"><span class="dot" style="background:${DAY_COLORS[sit]}"></span>${DAY_LABELS[sit]}</div>
+    <table>${rows}</table><div class="muted">${fmt(day.mdsCount)} atos do MDS no DOU · clique para abrir o dia</div>`;
+}
+function heatmap() {
+  const year = Number(M.days[0].date.slice(0, 4));
+  const start = new Date(year, 0, 1);
+  const size = 15, gap = 3, top = 16, left = 30;
+  let cells = '', months = '', week = 0;
+  // Rows follow Date.getDay(): Sunday on top, Saturday at the bottom.
+  const weekdays = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'].map((label, row) =>
+    `<text x="0" y="${top + row * (size + gap) + size - 3}" font-size="11" fill="var(--fg2)">${label}</text>`).join('');
+  for (let t = new Date(start); t.getFullYear() === year; t.setDate(t.getDate() + 1)) {
+    const iso = `${year}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+    week = Math.floor((start.getDay() + Math.round((t - start) / 864e5)) / 7);
+    const x = left + week * (size + gap), y = top + t.getDay() * (size + gap);
+    if (t.getDate() === 1) months += `<text x="${x}" y="11" font-size="11" fill="var(--fg2)">${MONTHS[t.getMonth()].slice(0, 3)}</text>`;
+    const day = byDate.get(iso);
+    if (!day) { cells += `<rect class="e" data-date="${iso}" x="${x}" y="${y}" width="${size}" height="${size}" rx="3" fill="var(--empty)"/>`; continue; }
+    cells += `<rect class="d" data-date="${iso}" x="${x}" y="${y}" width="${size}" height="${size}" rx="3" fill="${DAY_COLORS[daySituation(day)]}"/>`;
+  }
+  const width = left + (week + 1) * (size + gap);
+  return `<svg viewBox="0 0 ${width} ${top + 7 * (size + gap)}" width="${width}">${weekdays}${months}${cells}</svg>
+    <div class="legend"><span><i style="background:var(--hit)"></i>regra igual ao clipping</span><span><i style="background:var(--extra)"></i>regra sugeriu atos não enviados</span>
+    <span><i style="background:var(--miss)"></i>clipping enviou ato não sugerido</span><span><i style="background:var(--none)"></i>sem clipping manual</span>
+    <span><i style="background:var(--empty)"></i>sem edição coletada</span></div>`;
+}
+function viewYear(app) {
+  const rows = [...acts.map(({ day, c }) => ({ day, x: c, cat: c.cat })),
+    ...M.days.flatMap(day => day.manualMissing.map(m => ({ day, x: m, cat: 'out' })))];
+  const counts = {};
+  for (const r of rows) counts[r.cat] = (counts[r.cat] || 0) + 1;
+  const n = cat => counts[cat] || 0;
+  const manualDays = M.days.filter(d => d.hasManual).length;
+  const units = new Map();
+  for (const r of rows) {
+    if (!SENT.includes(r.cat) || r.cat === 'out') continue;
+    const u = units.get(r.x.unit) || { hit: 0, miss: 0, extra: 0 };
+    u[r.cat] += 1; units.set(r.x.unit, u);
+  }
+  const unitRows = [...units].sort((a, b) => (b[1].hit + b[1].miss + b[1].extra) - (a[1].hit + a[1].miss + a[1].extra))
+    .filter(([, u]) => u.hit + u.miss + u.extra > 0);
+  app.innerHTML = `<div class="page">
+    <h2>${M.days[0].date.slice(0, 4)}</h2>
+    <p class="lead">${fmt(M.days.length)} edições · ${manualDays} com clipping manual · ${fmt(n('hit') + n('miss') + n('out'))} atos enviados nos clippings</p>
+    <div class="heat">${heatmap()}</div>
+
+    <h2>Situação dos atos</h2>
+    <p class="lead">Nos dias com clipping manual, a regra sugeriu ${pct(n('hit'), n('hit') + n('miss'))} dos atos enviados que estavam entre os candidatos,
+      e ${pct(n('hit'), n('hit') + n('extra'))} das sugestões foram enviadas. Clique em uma situação para listar os atos.</p>
+    <table id="cats">${Object.keys(CATS).map(cat => `<tr class="go${yearState.cat === cat ? ' on' : ''}" data-cat="${cat}"><td>${dot(cat)}${CATS[cat][0]}</td><td class="n">${fmt(n(cat))}</td></tr>`).join('')}</table>
+
+    <h2>Por unidade, nos dias com clipping manual</h2>
+    <table><tr><th>Unidade</th><th class="n">${dot('hit')}enviados e sugeridos</th><th class="n">${dot('miss')}enviados, não sugeridos</th><th class="n">${dot('extra')}sugeridos, não enviados</th></tr>
+      ${unitRows.map(([unit, u]) => `<tr class="go${yearState.unit === unit ? ' on' : ''}" data-unit="${esc(unit)}"><td>${esc(unit)}</td><td class="n">${u.hit}</td><td class="n">${u.miss}</td><td class="n">${u.extra}</td></tr>`).join('')}</table>
+
+    <h2 id="atos">Atos</h2>
+    <div class="filters"><input id="q" placeholder="Buscar no título, órgão ou texto do ato" value="${esc(yearState.query)}">
+      <select id="unit"><option value="">Todas as unidades</option>${[...new Set(rows.map(r => r.x.unit).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'pt-BR'))
+        .map(u => `<option${u === yearState.unit ? ' selected' : ''}>${esc(u)}</option>`).join('')}</select>
+      ${yearState.cat ? `<button id="clearcat">${dot(yearState.cat)}${CATS[yearState.cat][0]} ✕</button>` : ''}</div>
+    <div id="results"></div>
+    <p class="muted" style="margin-top:40px;font-size:12px">Gerado em ${M.generated.slice(0, 16).replace('T', ' ')}.</p>
+  </div>`;
+  const search = () => {
+    const terms = yearState.query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (!terms.length && !yearState.cat && !yearState.unit) { $('#results').innerHTML = '<p class="muted">Busque um termo, escolha uma unidade ou clique numa situação ou unidade acima.</p>'; return; }
+    const hits = rows.filter(({ x, cat }) => {
+      if (yearState.cat && cat !== yearState.cat) return false;
+      if (yearState.unit && x.unit !== yearState.unit) return false;
+      const hay = (x._hay ||= `${x.title || ''} ${x.org || x.located?.organization || ''} ${M.texts[x.id] || x.text || ''}`.toLowerCase());
+      return terms.every(t => hay.includes(t));
+    }).sort((a, b) => (a.day.date < b.day.date ? 1 : -1));
+    $('#results').innerHTML = `<p class="muted">${fmt(hits.length)} atos${hits.length > 200 ? ', mostrando os 200 mais recentes' : ''}</p>
+      <table>${hits.slice(0, 200).map(({ day, x, cat }) => `<tr class="go" data-go="dia/${day.date}/${x.id}"><td>${dot(cat)}</td>
+        <td>${esc(x.title || x.located?.title || x.id)}<div class="muted">${esc(x.manualText || x.text || x.excerpt || '')}</div></td>
+        <td>${esc(x.unit || '')}</td><td class="n">${brDate(day.date)}</td></tr>`).join('')}</table>`;
+  };
+  let timer;
+  $('#q').oninput = e => { yearState.query = e.target.value; clearTimeout(timer); timer = setTimeout(search, 200); };
+  $('#clearcat') && ($('#clearcat').onclick = () => { yearState.cat = ''; viewYear(app); });
+  $('#unit').onchange = e => { yearState.unit = e.target.value; search(); };
+  search();
+  const tip = Object.assign(document.createElement('div'), { className: 'daytip', hidden: true });
+  app.append(tip);
+  const heat = $('.heat svg', app);
+  heat.addEventListener('mousemove', e => {
+    const cell = e.target.closest('rect[data-date]');
+    if (!cell) { tip.hidden = true; return; }
+    tip.innerHTML = dayTip(cell.dataset.date);
+    tip.hidden = false;
+    const box = tip.getBoundingClientRect();
+    tip.style.left = `${Math.min(e.clientX + 14, innerWidth - box.width - 8)}px`;
+    tip.style.top = `${e.clientY + 18 + box.height > innerHeight ? e.clientY - box.height - 12 : e.clientY + 18}px`;
+  });
+  heat.addEventListener('mouseleave', () => { tip.hidden = true; });
+  app.onclick = e => {
+    const cell = e.target.closest('rect.d');
+    if (cell) location.hash = `dia/${cell.dataset.date}`;
+    const catRow = e.target.closest('tr[data-cat]');
+    if (catRow) {
+      yearState.cat = yearState.cat === catRow.dataset.cat ? '' : catRow.dataset.cat;
+      viewYear(app);
+      $('#atos').scrollIntoView();
+      return;
+    }
+    const unitRow = e.target.closest('tr[data-unit]');
+    if (unitRow) {
+      yearState.unit = yearState.unit === unitRow.dataset.unit ? '' : unitRow.dataset.unit;
+      viewYear(app);
+      $('#atos').scrollIntoView();
+      return;
+    }
+    const row = e.target.closest('tr[data-go]');
+    if (row) location.hash = row.dataset.go;
+  };
+}
+
+/* ---------- rules: a small Markdown renderer for regras.md (headings, paragraphs, lists, tables, bold) ---------- */
+const inline = text => esc(text)
+  .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+  .replace(/`([^`]+)`/g, '<code>$1</code>')
+  .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+  .replace(/\\([$*_[\]()])/g, '$1');
+const LIST_ITEM = /^(\s*)([-*]|\d+\.)\s+(.*)$/;
+function renderList(lines) {
+  const indent = lines[0].match(/^\s*/)[0].length;
+  const ordered = /^\s*\d+\./.test(lines[0]);
+  const items = [];
+  for (const line of lines) {
+    const m = line.match(LIST_ITEM);
+    if (m && m[1].length === indent) items.push({ text: m[3], children: [] });
+    else if (items.length && m) items[items.length - 1].children.push(line);
+    else if (items.length) items[items.length - 1].text += ` ${line.trim()}`;
+  }
+  const tag = ordered ? 'ol' : 'ul';
+  return `<${tag}>${items.map(it => `<li>${inline(it.text)}${it.children.length ? renderList(it.children) : ''}</li>`).join('')}</${tag}>`;
+}
+function renderMarkdown(markdown) {
+  const lines = markdown.replace(/\r/g, '').split('\n');
+  const out = [];
+  let i = 0;
+  const isBlockStart = line => /^#{1,6}\s/.test(line) || line.startsWith('|') || line.startsWith('>') || LIST_ITEM.test(line);
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) { i += 1; continue; }
+    const heading = line.match(/^(#{1,6})\s+(.*)$/);
+    if (heading) { out.push(`<h${heading[1].length}>${inline(heading[2])}</h${heading[1].length}>`); i += 1; continue; }
+    if (line.startsWith('>')) {
+      const quoted = [];
+      while (i < lines.length && lines[i].startsWith('>')) { quoted.push(lines[i].replace(/^> ?/, '')); i += 1; }
+      out.push(`<blockquote>${renderMarkdown(quoted.join('\n'))}</blockquote>`);
+      continue;
+    }
+    if (line.startsWith('|')) {
+      const rows = [];
+      while (i < lines.length && lines[i].startsWith('|')) { rows.push(lines[i]); i += 1; }
+      const cells = row => row.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      const body = rows.slice(1).filter(r => !/^\|[\s:|-]+\|$/.test(r.trim()));
+      out.push(`<table><tr>${cells(rows[0]).map(c => `<th>${inline(c)}</th>`).join('')}</tr>${body.map(r => `<tr>${cells(r).map(c => `<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</table>`);
+      continue;
+    }
+    if (LIST_ITEM.test(line)) {
+      const block = [];
+      while (i < lines.length && lines[i].trim() && (LIST_ITEM.test(lines[i]) || /^\s/.test(lines[i]))) { block.push(lines[i]); i += 1; }
+      out.push(renderList(block));
+      continue;
+    }
+    const para = [];
+    while (i < lines.length && lines[i].trim() && !isBlockStart(lines[i])) { para.push(lines[i].trim()); i += 1; }
+    out.push(`<p>${inline(para.join(' '))}</p>`);
+  }
+  return out.join('');
+}
+/* ---------- summaries: automatic summary vs the manual clipping description ---------- */
+const unescapeManual = text => text.replace(/\\([$*_[\]()])/g, '$1');
+const normSummary = text => unescapeManual(text).replace(/[*_]/g, '').replace(/\s+/g, ' ').trim().replace(/^[;:,.\s-]+/, '').replace(/[.;]+$/, '').toLowerCase();
+// Word-level LCS: marks the words of each text that the other one does not have.
+function wordDiff(a, b) {
+  const ta = a.split(/\s+/).filter(Boolean), tb = b.split(/\s+/).filter(Boolean);
+  const key = w => w.toLowerCase();
+  const n = ta.length, m = tb.length;
+  const dp = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i -= 1) for (let j = m - 1; j >= 0; j -= 1)
+    dp[i][j] = key(ta[i]) === key(tb[j]) ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const ka = new Array(n).fill(false), kb = new Array(m).fill(false);
+  for (let i = 0, j = 0; i < n && j < m;) {
+    if (key(ta[i]) === key(tb[j])) { ka[i] = kb[j] = true; i += 1; j += 1; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) i += 1; else j += 1;
+  }
+  const render = (words, kept, cls) => {
+    const out = []; let run = [];
+    const flush = () => { if (run.length) out.push(`<span class="${cls}">${esc(run.join(' '))}</span>`); run = []; };
+    words.forEach((w, i) => { if (kept[i]) { flush(); out.push(esc(w)); } else run.push(w); });
+    flush();
+    return out.join(' ');
+  };
+  const common = n + m ? Math.round((200 * dp[0][0]) / (n + m)) : 100;
+  return { manual: render(ta, ka, 'only-m'), auto: render(tb, kb, 'only-a'), common };
+}
+const summaryState = { filter: 'diff', type: '' };
+function viewSummaries(app) {
+  const items = acts.filter(({ c }) => c.cat === 'hit').map(({ day, c }) => {
+    const manual = unescapeManual(c.manualText || '');
+    return { day, c, manual, same: normSummary(manual) === normSummary(c.excerpt) };
+  });
+  const same = items.filter(it => it.same).length;
+  const types = new Map();
+  for (const it of items) {
+    const t = types.get(it.c.type || '(sem tipo)') || { n: 0, same: 0 };
+    t.n += 1; t.same += it.same ? 1 : 0; types.set(it.c.type || '(sem tipo)', t);
+  }
+  const shown = items.filter(it => (summaryState.filter === 'all' || (summaryState.filter === 'same') === it.same)
+    && (!summaryState.type || (it.c.type || '(sem tipo)') === summaryState.type)).sort((a, b) => (a.day.date < b.day.date ? 1 : -1));
+  const card = it => {
+    const head = `<div class="head"><a href="#dia/${it.day.date}/${it.c.id}">${esc(it.c.title)}</a><span class="muted">${esc(it.c.type)} · ${brDate(it.day.date)}</span></div>`;
+    if (it.same) return `<div class="pair" data-i="${shown.indexOf(it)}">${head}<div class="one"><span class="dot" style="background:var(--hit)"></span>${esc(it.manual)}</div></div>`;
+    const d = wordDiff(it.manual, it.c.excerpt);
+    return `<div class="pair" data-i="${shown.indexOf(it)}">${head.replace('</span></div>', ` · ${d.common}% das palavras em comum</span></div>`)}
+      <div class="cols"><div><h4>Clipping manual</h4>${d.manual}</div><div><h4>Resumo automático</h4>${d.auto}</div></div></div>`;
+  };
+  const filters = { diff: `Diferentes (${items.length - same})`, same: `Idênticos (${same})`, all: `Todos (${items.length})` };
+  app.innerHTML = `<div class="page">
+    <h2>Comparativo de resumos</h2>
+    <p class="lead">Nos ${items.length} atos que o programa selecionou e a equipe enviou no clipping, o resumo automático é idêntico ao do clipping manual em
+      <b>${same}</b> (${pct(same, items.length)}). A comparação desconsidera maiúsculas, espaços e a pontuação final.
+      Clique num ato para ver o texto integral com o trecho escolhido pela equipe e o escolhido pelo programa.</p>
+    <div class="chips" id="sfilter">${Object.entries(filters).map(([k, label]) => `<button data-k="${k}" class="${summaryState.filter === k ? 'on' : ''}">${label}</button>`).join('')}</div>
+    <p class="muted" style="font-size:12px;margin:0 0 4px">Idênticos por tipo de ato (clique para filtrar):</p>
+    <div class="chips types" id="stypes">${[...types].sort((a, b) => b[1].n - a[1].n).map(([t, v]) =>
+      `<button data-type="${esc(t)}" class="${summaryState.type === t ? 'on' : ''}">${esc(t)} · ${v.same}/${v.n}</button>`).join('')}</div>
+    ${summaryState.filter !== 'same' ? '<p class="legend-inline"><span class="only-m">só no clipping manual</span><span class="only-a">só no resumo automático</span></p>' : ''}
+    ${shown.map(card).join('') || '<p class="muted">Nenhum ato neste filtro.</p>'}
+  </div>`;
+  $('#sfilter').onclick = e => { if (e.target.dataset.k) { summaryState.filter = e.target.dataset.k; viewSummaries(app); } };
+  $('#stypes').onclick = e => {
+    const chip = e.target.closest('button[data-type]');
+    if (chip) { summaryState.type = summaryState.type === chip.dataset.type ? '' : chip.dataset.type; viewSummaries(app); }
+  };
+  app.onclick = e => {
+    if (e.target.closest('a')) return;
+    const card = e.target.closest('.pair[data-i]');
+    if (card) openSelections(shown[Number(card.dataset.i)]);
+  };
+}
+
+/* Full text of an act with the manual and the automatic selections, side by side. */
+function actBlocks(markdown) {
+  const blocks = markdown.replace(/\r/g, '').split(/\n[ \t]*\n/).map(b => b.replace(/\s+/g, ' ').trim()).filter(Boolean);
+  while (blocks.length && /^(#+ |(Source|Date|Section|Organization):)/.test(blocks[0])) blocks.shift();
+  return blocks.filter(b => b !== '|').map(b => b.replace(/^#{1,6}\s+/, ''));
+}
+// Locates a summary in the act text; blocks are joined by one space so a summary may span paragraphs.
+function locate(joined, summary) {
+  const text = joined.toLowerCase();
+  const s = unescapeManual(summary).replace(/\*\*/g, '').replace(/\s+/g, ' ').trim().replace(/^[;:,.\s-]+/, '').toLowerCase();
+  if (!s) return null;
+  let i = text.indexOf(s);
+  if (i >= 0) return { start: i, end: i + s.length, exact: true };
+  const core = s.replace(/[\s.:;…]+$/, '');
+  i = text.indexOf(core);
+  if (i >= 0) return { start: i, end: i + core.length, exact: true };
+  const head = core.slice(0, 60), tail = core.slice(-40);
+  i = text.indexOf(head);
+  if (i < 0) return null;
+  const j = text.indexOf(tail, i);
+  if (j >= 0 && j - i < core.length * 1.5 + 60) return { start: i, end: j + tail.length, exact: false };
+  return { start: i, end: Math.min(text.length, i + core.length), exact: false };
+}
+function renderSelection(blocks, range, cls) {
+  let offset = 0;
+  return blocks.map(block => {
+    const b0 = offset, b1 = offset + block.length;
+    offset = b1 + 1;
+    if (!range || range.end <= b0 || range.start >= b1) return `<p>${esc(block)}</p>`;
+    const a = Math.max(range.start, b0) - b0, z = Math.min(range.end, b1) - b0;
+    return `<p>${esc(block.slice(0, a))}<mark class="${cls}">${esc(block.slice(a, z))}</mark>${esc(block.slice(z))}</p>`;
+  }).join('');
+}
+function openSelections(it) {
+  document.querySelector('.amodal')?.remove();
+  const blocks = actBlocks(M.texts[it.c.id] || '');
+  const joined = blocks.join(' ');
+  const side = (label, cls, summary) => {
+    const range = locate(joined, summary);
+    const note = !range ? `<div class="note">Este trecho não aparece literalmente no texto do ato:<br>“${esc(unescapeManual(summary))}”</div>`
+      : !range.exact ? '<div class="note">Localização aproximada: o trecho tem pequenas diferenças em relação ao texto do ato.</div>' : '';
+    return `<section><h4><mark class="${cls}">${label}</mark></h4>${note}<div class="atext">${renderSelection(blocks, range, cls)}</div></section>`;
+  };
+  const el = document.createElement('div');
+  el.className = 'amodal';
+  el.innerHTML = `<div class="abox">
+    <div class="ahead"><div><b>${esc(it.c.title)}</b>
+      <div class="muted">${esc(it.c.type)} · ${brDate(it.day.date)} · ${it.same ? 'resumos idênticos' : 'resumos diferentes'} ·
+        <a href="${esc(it.c.url)}" target="_blank" rel="noopener">abrir no DOU ↗</a> · <a href="#dia/${it.day.date}/${it.c.id}">ver na Análise dia</a></div></div>
+      <button title="Fechar (Esc)">×</button></div>
+    <div class="acols">${side('Seleção da equipe (clipping manual)', 'sel-m', it.manual)}${side('Seleção do programa', 'sel-a', it.c.excerpt)}</div>
+  </div>`;
+  const close = () => { el.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  el.onclick = e => { if (e.target === el || e.target.closest('.ahead button') || e.target.closest('a[href^="#"]')) close(); };
+  document.addEventListener('keydown', onKey);
+  document.body.append(el);
+  el.querySelectorAll('.atext').forEach(t => {
+    const mark = t.querySelector('mark');
+    if (mark) t.scrollTop = Math.max(0, mark.offsetTop - t.offsetTop - 60);
+  });
+}
+
+/* ---------- clipping: the email generated by clipping.py next to the one the team sent ---------- */
+const EMAIL_MATCH = {
+  identical: ['idêntico ao email enviado', 'var(--hit)'],
+  same_acts: ['mesmos atos do email enviado, com diferenças no texto', 'var(--extra)'],
+  different: ['atos diferentes do email enviado', 'var(--miss)'],
+};
+async function copyEmail(el, text) {
+  try {
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html': new Blob([el.innerHTML], { type: 'text/html' }),
+      'text/plain': new Blob([el.innerText], { type: 'text/plain' }),
+    })]);
+  } catch {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    getSelection().removeAllRanges(); getSelection().addRange(range);
+    document.execCommand('copy');
+    getSelection().removeAllRanges();
+  }
+  const note = $('#copied');
+  note.textContent = 'Copiado. Cole no email.';
+  setTimeout(() => { note.textContent = ''; }, 3000);
+}
+function viewClipping(app, date) {
+  const dates = M.days.map(d => d.date);
+  if (!byDate.has(date)) date = dates.filter(d => d <= (date || '9999')).pop() || dates[dates.length - 1];
+  const day = byDate.get(date);
+  const i = dates.indexOf(date);
+  const match = EMAIL_MATCH[day.emailMatch];
+  // The clipping-only page (index.html) shows just the generated email, without the team's for comparison.
+  const only = Boolean(document.body.dataset.only);
+  const badge = match ? `<span class="dot" style="background:${match[1]}"></span>${match[0]}` : '<span class="muted">sem clipping manual nesta data</span>';
+  const manual = `<div><h3>Enviado pela equipe</h3>
+        <div class="email${day.manualEmail ? '' : ' empty'}">${day.manualEmail ? renderMarkdown(day.manualEmail) : 'Não há clipping manual desta data.'}</div></div>`;
+  app.innerHTML = `
+    <div class="top">
+      <button id="prev" ${i <= 0 ? 'disabled' : ''} title="Dia anterior">‹</button>
+      <input type="date" id="date" value="${date}" min="${dates[0]}" max="${dates[dates.length - 1]}">
+      <button id="next" ${i >= dates.length - 1 ? 'disabled' : ''} title="Próximo dia">›</button>
+      <h1>${longDate(date)}</h1>
+      ${only ? '' : `<span class="right badge">${badge}</span>`}
+    </div>
+    <div class="emails${only ? ' single' : ''}">
+      ${only ? '' : manual}
+      <div><h3>Gerado automaticamente <button id="copy">Copiar</button><span id="copied" class="muted"></span></h3>
+        <div class="email" id="generated">${renderMarkdown(day.clipping)}</div></div>
+    </div>`;
+  $('#prev').onclick = () => { location.hash = `clipping/${dates[i - 1]}`; };
+  $('#next').onclick = () => { location.hash = `clipping/${dates[i + 1]}`; };
+  $('#date').onchange = e => { location.hash = `clipping/${e.target.value}`; };
+  $('#copy').onclick = () => copyEmail($('#generated'), day.clipping);
+}
+
+function viewRules(app) {
+  app.innerHTML = `<div class="prose">${M.rules ? renderMarkdown(M.rules) : '<p class="muted">O arquivo docs/regras.md não foi encontrado ao gerar o relatório.</p>'}</div>`;
+}
+
+/* ---------- routing and theme ---------- */
+function route() {
+  const [view = '', ...rest] = decodeURIComponent(location.hash.slice(1)).split('/');
+  const fresh = Object.assign(document.createElement('main'), { id: 'app' });
+  $('#app').replaceWith(fresh);
+  board = null;
+  const tab = document.body.dataset.only || (view === '' ? 'ano' : ['ano', 'clipping', 'resumos', 'regras'].includes(view) ? view : 'dia');
+  document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.v === tab));
+  if (tab === 'ano') viewYear(fresh); else if (tab === 'clipping') viewClipping(fresh, rest[0]); else if (tab === 'resumos') viewSummaries(fresh); else if (tab === 'regras') viewRules(fresh); else viewDay(fresh, rest[0], rest[1]);
+  window.scrollTo(0, 0);
+}
+const THEMES = ['auto', 'light', 'dark'];
+function applyTheme(theme) {
+  if (theme === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = theme;
+}
+$('#theme').onclick = () => {
+  const next = THEMES[(THEMES.indexOf(localStorage.getItem('regulacao.theme') || 'auto') + 1) % THEMES.length];
+  localStorage.setItem('regulacao.theme', next);
+  applyTheme(next);
+};
+applyTheme(localStorage.getItem('regulacao.theme') || 'auto');
+
+loadModel().then(model => {
+  M = model;
+  // Dates whose index is empty had no DOU edition.
+  M.days = M.days.filter(day => day.total > 0 || day.manualSources.length > 0);
+  for (const day of M.days) {
+    byDate.set(day.date, day);
+    for (const m of day.manualMissing) m.unit = (m.located?.organization || '').split('/')[1] || '';
+    day.hasManual = day.manualSources.length > 0;
+    day.mdsCount = day.candidates.length;
+    for (const c of day.candidates) { c.date = day.date; c.cat = category(c, day); }
+    // Acts the rule did not suggest matter only when the manual clipping sent them.
+    day.candidates = day.candidates.filter(c => c.cat !== 'none');
+    for (const c of day.candidates) acts.push({ day, c });
+  }
+  window.addEventListener('hashchange', route);
+  route();
+}).catch(error => { $('#app').innerHTML = `<p class="loading">Não foi possível ler os dados: ${esc(error.message)}</p>`; });
+</script>
+</body>
+</html>

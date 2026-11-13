@@ -1,0 +1,121 @@
+name: Clipping diário
+
+on:
+  schedule:
+    # Times are UTC: 11:05 UTC = 08:05 in Brasília, after the regular edition.
+    # A few minutes past the hour avoids the start-of-hour queue on GitHub's scheduler.
+    - cron: '5 11 * * *'
+    # Backstop at 11:05 in Brasília: covers longer DOU outages and skipped scheduled runs, and picks up extra
+    # editions published in the morning. It commits only when the data or the clipping changed.
+    - cron: '5 14 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Data da edição (AAAA-MM-DD); vazio = hoje'
+        required: false
+
+permissions:
+  contents: write
+  pages: write
+  # To open an issue when the run fails or finds no articles on a weekday.
+  issues: write
+  id-token: write
+
+concurrency:
+  group: clipping
+  cancel-in-progress: false
+
+jobs:
+  clipping:
+    runs-on: ubuntu-latest
+    # Three collection attempts with two 10-minute waits fit well within this limit.
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - uses: astral-sh/setup-uv@v10.3.3
+
+      # Each request is already retried for about 30 seconds (scripts/dou_fetch.py). This loop covers DOU outages
+      # that last minutes: daily.py can resume, because the articles already saved are not downloaded again.
+      - name: Collect the edition and write the clipping
+        id: collect
+        env:
+          DATE: ${{ inputs.date }}
+          ATTEMPTS: 3
+          WAIT_SECONDS: 600
+        run: |
+          # Fix the date once, so that a retry after midnight still collects the same edition.
+          DATE=${DATE:-$(TZ=America/Sao_Paulo date +%F)}
+          for attempt in $(seq "$ATTEMPTS"); do
+            python scripts/daily.py --date "$DATE" && exit 0
+            if [ "$attempt" -lt "$ATTEMPTS" ]; then
+              echo "::warning::Attempt $attempt of $ATTEMPTS failed; retrying in $((WAIT_SECONDS / 60)) minutes"
+              sleep "$WAIT_SECONDS"
+            fi
+          done
+          exit 1
+
+      - name: Commit the clipping
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p clipping-novo
+          git add clipping-novo data
+          if git diff --cached --quiet; then
+            echo 'No clipping changes'
+          else
+            git commit -m "Clipping $(basename "$(git diff --cached --name-only | head -1)" .md)"
+            git push
+          fi
+
+      # The collected data is already committed; a failing test only holds back the publication.
+      - name: Run the tests
+        run: make test
+
+      - name: Build the site
+        run: |
+          python scripts/build_site.py
+          python scripts/report.py
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v5
+
+      # Makes problems visible to the whole organization, not only to whoever last edited the schedule.
+      # A new run comments on the open issue instead of opening another one.
+      - name: Report the problem in an issue
+        # The backstop run would repeat the morning's warning on every weekday holiday, so it reports only failures.
+        if: failure() || (steps.collect.outputs.warning != '' && github.event.schedule != '5 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          JOB_STATUS: ${{ job.status }}
+          WARNING: ${{ steps.collect.outputs.warning }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$JOB_STATUS" = failure ]; then
+            title='Falha no clipping diário'
+            body="A execução $RUN_URL falhou, e o clipping do dia pode não ter sido publicado. Veja o log da execução; depois de corrigir, rode o workflow à mão e feche esta issue."
+          else
+            title='Dia útil sem atos no DOU'
+            body="A execução $RUN_URL não encontrou nenhum ato no DOU: $WARNING. Se foi feriado ou ponto facultativo, feche esta issue. Se não foi, o site do DOU pode ter mudado."
+          fi
+          number=$(gh issue list --state open --search "in:title \"$title\"" --json number,title \
+            --jq "map(select(.title == \"$title\")) | .[0].number // empty")
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi

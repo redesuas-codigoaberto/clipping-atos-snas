@@ -1,0 +1,19 @@
+# PORTARIA MDS Nº 28, DE 26 DE FEVEREIRO DE 2026
+
+Source: https://www.in.gov.br/web/dou/-/portaria-mds-n-28-de-26-de-fevereiro-de-2026-689308333
+
+Date: 27/02/2026
+
+Section: DO2
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Gabinete do Ministro
+
+## PORTARIA MDS Nº 28, DE 26 DE FEVEREIRO DE 2026
+
+O MINISTRO DE ESTADO DO DESENVOLVIMENTO E ASSISTÊNCIA SOCIAL, FAMÍLIA E COMBATE À FOME, com fundamento no art. 96-A, da Lei nº 8.112, de 11 de dezembro de 1990, e observadas as disposições constantes do Decreto nº 9.991, de 28 de agosto de 2019, alterado pelo Decreto nº 10.506, de 2 de outubro de 2020, e da Instrução Normativa SGP-ENAP/SEDGG/ME nº 21, de 1º de fevereiro de 2021, e tendo em vista o disposto no Processo nº 71000.080627/2025-41, resolve:
+
+Art. 1º Tornar sem efeito a Portaria MDS nº 116, de 18 de novembro de 2025, publicada no Diário Oficial da União nº 223, seção 2, página 16, em 19 de novembro de 2025, que concedeu afastamento, com ônus limitado, à servidora CAMILA BATISTA MARINS CARNEIRO, Matrícula SIAPE nº 2045221, ocupante do cargo efetivo de Analista Técnica de Políticas Sociais - ATPS, lotada na Secretaria Nacional de Segurança Alimentar e Nutricional, com vistas à participação no Programa de Pós-Graduação stricto sensu - Doutorado em Meio Ambiente e Desenvolvimento, a realizar-se na Universidade de Brasília - UNB, em Brasília/DF, no período de 1º de março de 2026 a 30 de março de 2030.
+
+Art. 2º Esta Portaria entra em vigor na data de sua publicação.
+
+JOSÉ WELLINGTON BARROSO DE ARAÚJO DIAS

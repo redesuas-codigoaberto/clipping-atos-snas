@@ -1,0 +1,17 @@
+# PORTARIA/SAA/SE/MDS Nº 121, DE 11 DE FEVEREIRO DE 2026
+
+Source: https://www.in.gov.br/web/dou/-/portaria/saa/se/mds-n-121-de-11-de-fevereiro-de-2026-686852768
+
+Date: 12/02/2026
+
+Section: DO2
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Executiva/Subsecretaria de Assuntos Administrativos
+
+## PORTARIA/SAA/SE/MDS Nº 121, DE 11 DE FEVEREIRO DE 2026
+
+O SUBSECRETÁRIO DE ASSUNTOS ADMINISTRATIVOS SUBSTITUTO DA SECRETARIA-EXECUTIVA DO MINISTÉRIO DO DESENVOLVIMENTO E ASSISTÊNCIA SOCIAL, FAMÍLIA E COMBATE À FOME, tendo em vista o que dispõe o Decreto nº 11.392, de 20 de janeiro de 2023,publicado no Diário Oficial da União, de 20 de janeiro de 2023, alterado pelos Decretos nº 11.634, de 14 de agosto de 2023; nº 12.099, de 4 de julho de 2024; nº 12.628, de 17 de setembro de 2025; e nº 12.786, de 19 de dezembro de 2025, no uso das atribuições que lhe foram conferidas pelo art. 1º, da Portaria/SE/MDS nº 362, de 1º de junho de 2023, publicada no Diário Oficial da União, de 2 de junho de 2023 e Portaria/SAA/SE/MDS nº 536, de 2023, de acordo com o art. 38 da Lei nº 8.112, de 1990 e, ainda, o que consta no Processo nº 71000.005895/2026-64, resolve:
+
+Designar a servidora RÍVIA RYKER BANDEIRA DE ALENCAR para exercer o encargo de substituto eventual da Função Comissionada Executiva de Coordenador-Geral, código FCE 1.13, da Coordenação-Geral de Apoio às Ações de Segurança Alimentar e Nutricional, do Departamento de Promoção da Inclusão Produtiva Rural e Acesso à Água, da Secretaria Nacional de Segurança Alimentar e Nutricional, deste Ministério, nos afastamentos, impedimentos legais ou regulamentares do titular e na vacância da função.
+
+FELIPE MONTEIRO E SILVA

@@ -1,0 +1,767 @@
+# EXTRATO DE ADESÃO
+
+Source: https://www.in.gov.br/web/dou/-/extrato-de-adesao-736412530
+
+Date: 05/10/2026
+
+Section: DO3
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Nacional de Segurança Alimentar e Nutricional
+
+## EXTRATO DE ADESÃO
+
+ADESÃO AO PROGRAMA DE AQUISIÇÃO DE ALIMENTOS
+
+OBJETO: Adesão dos Municípios ao Programa de Aquisição de Alimentos, conforme previsto no Art. 10º da Lei nº 14.628, de 20 de julho de 2023, a fim de cooperar, no âmbito de seu território, para a execução do Programa.
+
+VIGÊNCIA: por tempo indeterminado, a partir da data da publicação do extrato do Termo de Adesão no Diário Oficial da União.
+
+DATA DE ASSINATURA: 02/10/2026
+
+|
+
+EXTRATOS DE ADESÃO
+
+|
+
+Nº Termo de Adesão
+
+|
+
+Nº Processo
+
+|
+
+UF
+
+|
+
+Município
+
+|
+
+Prefeito (a) Municipal
+
+|
+
+CPF
+
+|
+
+02883/2026
+
+|
+
+71000.115908/2012-15
+
+|
+
+BA
+
+|
+
+SANTO AMARO
+
+|
+
+FLAVIANO ROHRS DA SILVA BOMFIM
+
+|
+
+784 *** *** 15
+
+|
+
+02840/2026
+
+|
+
+71000.068673/2026-52
+
+|
+
+MS
+
+|
+
+JARDIM
+
+|
+
+JULIANO DA CUNHA MIRANDA
+
+|
+
+931 *** *** 00
+
+|
+
+02858/2026
+
+|
+
+71000.070139/2026-14
+
+|
+
+PB
+
+|
+
+CONDADO
+
+|
+
+CAIO RODRIGO BEZERRA PAIXÃO
+
+|
+
+031 *** *** 41
+
+|
+
+02845/2026
+
+|
+
+71000.069078/2026-34
+
+|
+
+PB
+
+|
+
+SANTANA DE MANGUEIRA
+
+|
+
+MARINA DONÁRIA ALVARENGA DE LACERDA
+
+|
+
+134 *** *** 55
+
+|
+
+02814/2026
+
+|
+
+71000.065762/2026-47
+
+|
+
+PB
+
+|
+
+JERICÓ
+
+|
+
+KADSON VALBERTO LOPES MONTEIRO
+
+|
+
+805 *** *** 49
+
+|
+
+02859/2026
+
+|
+
+71000.070375/2026-22
+
+|
+
+PB
+
+|
+
+SÃO JOSÉ DE PRINCESA
+
+|
+
+JULIANO DINIZ MORAIS
+
+|
+
+053 *** *** 07
+
+|
+
+02863/2026
+
+|
+
+71000.070819/2026-20
+
+|
+
+PB
+
+|
+
+SÃO VICENTE DO SERIDÓ
+
+|
+
+ERIVAM DOS ANJOS LEONARDO
+
+|
+
+055 *** *** 46
+
+|
+
+02850/2026
+
+|
+
+71000.069114/2026-60
+
+|
+
+PB
+
+|
+
+CALDAS BRANDÃO
+
+|
+
+FABIO ROLIM PEIXOTO
+
+|
+
+023 *** *** 31
+
+|
+
+02864/2026
+
+|
+
+71000.079322/2013-52
+
+|
+
+PB
+
+|
+
+IMACULADA
+
+|
+
+ALDO LUSTOSA DA SILVA
+
+|
+
+023 *** *** 82
+
+|
+
+02820/2026
+
+|
+
+71000.066214/2026-34
+
+|
+
+PB
+
+|
+
+SÃO JOSÉ DE PIRANHAS
+
+|
+
+SANDOVAL VIEIRA LINS
+
+|
+
+046 *** *** 60
+
+|
+
+02874/2026
+
+|
+
+71000.078352/2026-66
+
+|
+
+PB
+
+|
+
+BARRA DE SANTANA
+
+|
+
+CLEOCÉLIO NAZARENO BARRETO
+
+|
+
+027 *** *** 36
+
+|
+
+02861/2026
+
+|
+
+71000.070746/2026-76
+
+|
+
+PB
+
+|
+
+VÁRZEA
+
+|
+
+PAULO NÓBREGA DE MEDEIROS
+
+|
+
+010 *** *** 03
+
+|
+
+02853/2026
+
+|
+
+71000.069690/2026-15
+
+|
+
+PB
+
+|
+
+CABACEIRAS
+
+|
+
+RICARDO JORGE DE FARAIS AIRES
+
+|
+
+308 *** *** 91
+
+|
+
+00038/2026
+
+|
+
+71000.069324/2021-43
+
+|
+
+PB
+
+|
+
+LOGRADOURO
+
+|
+
+JOSÉ MARINALDO DA CRUZ
+
+|
+
+631 *** *** 06
+
+|
+
+02886/2026
+
+|
+
+71000.080726/2026-11
+
+|
+
+PB
+
+|
+
+SOUSA
+
+|
+
+HELDER MOREIRA ABRANTES DE CARVALHO
+
+|
+
+045 *** *** 85
+
+|
+
+02856/2026
+
+|
+
+71000.069860/2026-53
+
+|
+
+PB
+
+|
+
+PASSAGEM
+
+|
+
+ROZÂNGELA FERREIRA SILVA
+
+|
+
+049 *** *** 01
+
+|
+
+02855/2026
+
+|
+
+71000.079518/2013-47
+
+|
+
+PE
+
+|
+
+IBIMIRIM
+
+|
+
+JOSÉ WELLITON DE MELO SIQUEIRA
+
+|
+
+041 *** *** 70
+
+|
+
+02857/2026
+
+|
+
+71000.070037/2026-91
+
+|
+
+PE
+
+|
+
+ITACURUBA
+
+|
+
+OLEGÁRIO JUNIOR CANTARELLI
+
+|
+
+755 *** *** 49
+
+|
+
+02870/2026
+
+|
+
+71000.071631/2026-07
+
+|
+
+PE
+
+|
+
+GOIANA
+
+|
+
+MARCÍLIO RÉGIO SILVEIRA DA COSTA
+
+|
+
+247 *** *** 25
+
+|
+
+02865/2026
+
+|
+
+71000.071450/2026-72
+
+|
+
+PE
+
+|
+
+GRAVATÁ
+
+|
+
+JOSELITO GOMES DA SILVA
+
+|
+
+269 *** *** 87
+
+|
+
+02868/2026
+
+|
+
+71000.071510/2026-57
+
+|
+
+PI
+
+|
+
+SÃO GONÇALO DO GURGUÉIA
+
+|
+
+ROSELIDIA LUSTOSA DE SOUSA MARQUES
+
+|
+
+876 *** ***20
+
+|
+
+02869/2026
+
+|
+
+71000.000549/2013-75
+
+|
+
+PI
+
+|
+
+PASSAGEM FRANCA DO PIAUÍ
+
+|
+
+SAULO VINICIUS RODRIGUES SATURNINO
+
+|
+
+035 *** *** 83
+
+|
+
+02866/2026
+
+|
+
+71000.071461/2026-52
+
+|
+
+PI
+
+|
+
+ACAUÃ
+
+|
+
+REGINALDO RAIMUNDO RODRIGUES
+
+|
+
+714 *** *** 04
+
+|
+
+02880/2026
+
+|
+
+71000.079731/2026-73
+
+|
+
+PI
+
+|
+
+CONCEÇÃO DO CANINDÉ
+
+|
+
+DIOGO JANES DE OLIVEIRA
+
+|
+
+011 *** *** 46
+
+|
+
+02884/2026
+
+|
+
+71000.080068/2026-50
+
+|
+
+PI
+
+|
+
+ANGICAL DO PIAUÍ
+
+|
+
+BRUNO FERREIRA SOBRINHO NETO
+
+|
+
+003 *** *** 09
+
+|
+
+02867/2026
+
+|
+
+71000.071501/2026-66
+
+|
+
+PI
+
+|
+
+NOSSA SENHORA DE NAZARÉ
+
+|
+
+JOSÉ HENRIQUE DE OLIVEIRA ALVES
+
+|
+
+776 *** *** 97
+
+|
+
+02733/2026
+
+|
+
+71000.079283/2013-93
+
+|
+
+SE
+
+|
+
+SANTA ROSA DE LIMA
+
+|
+
+JANÍLSON ALVES DOS ANJOS
+
+|
+
+116 *** *** 72
+
+|
+
+02827/2026
+
+|
+
+71000.066812/2026-11
+
+|
+
+SE
+
+|
+
+SERRA
+
+|
+
+WEVERSON VALCKER MEIRELES
+
+|
+
+124 *** *** 61
+
+|
+
+02837/2026
+
+|
+
+71000.067980/2026-16
+
+|
+
+SP
+
+|
+
+BOITUVA
+
+|
+
+EDSON JOSÉ MARCUSSO
+
+|
+
+984 *** *** 15
+
+|
+
+02882/2026
+
+|
+
+71000.079842/2013-65
+
+|
+
+SP
+
+|
+
+MOGI MIRIM
+
+|
+
+PAULO DE OLIVEIRA E SILVA
+
+|
+
+201 *** *** 00

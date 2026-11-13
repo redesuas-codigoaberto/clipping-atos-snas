@@ -1,0 +1,119 @@
+# Aviso de PRORROGAÇÃO
+
+Source: https://www.in.gov.br/web/dou/-/aviso-de-prorrogacao-697353043
+
+Date: 02/04/2026
+
+Section: DO3
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Nacional de Segurança Alimentar e Nutricional
+
+## Aviso de PRORROGAÇÃO
+
+## CHAMAMENTO PÚBLICO Nº 1/2026
+
+A UNIÃO, por intermédio do MINISTÉRIO DO DESENVOLVIMENTO E ASSISTÊNCIA SOCIAL, FAMÍLIA E COMBATE À FOME - MDS, através da Secretaria Nacional de Segurança Alimentar e Nutricional - SESAN, no âmbito do Plano Brasil sem Fome, com esteio na Lei nº 13.019, de 31 de julho de 2014, no Decreto nº 8.726, de 27 de abril de 2016, na Lei nº 14.802, de 10 de janeiro de 2024, e na Lei nº 14.628, de 20 de julho de 2023, que institui o Programa Cozinha Solidária, resolve:
+
+PRORROGAR O PRAZO DE INCLUSÃO DAS PROPOSTAS NA PLATAFORMA TRANSFEREGOV, NO ÂMBITO DO EDITAL DE CHAMAMENTO PÚBLICO MDS Nº 1, de 09 de fevereiro de 2026 - publicado no Diário Oficial da União, Seção 3, página 25, visando a seleção de propostas para a celebração de parcerias com o Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), por intermédio da Secretaria Nacional de Segurança Alimentar e Nutricional (SESAN), por meio da formalização de termos de colaboração com as Entidades Gestoras selecionadas, atualizando o cronograma, que passa a vigorar com a redação a seguir:
+
+Item 7.1 A fase de seleção observará as etapas previstas na tabela a seguir:
+
+Tabela 2: Cronograma referente à fase de seleção.
+
+|
+
+ETAPA
+
+|
+
+DESCRIÇÃO DA ETAPA
+
+|
+
+Datas
+
+|
+
+1
+
+|
+
+Publicação do Edital de Chamamento Público.
+
+|
+
+09/02/2026
+
+|
+
+2
+
+|
+
+Inclusão das propostas na Plataforma Transferegov, acompanhadas dos Anexos IV, VII e VIII e da documentação comprobatória referenciada no inciso III do item 8.2.9 deste Edital.
+
+|
+
+10/02/2026 a 17/03/2026
+
+|
+
+3
+
+|
+
+Avaliação das propostas pela Comissão de Seleção.
+
+|
+
+18/03/2026 a 06/04/2026
+
+|
+
+4
+
+|
+
+Divulgação do resultado preliminar.
+
+|
+
+07/04/2026
+
+|
+
+5
+
+|
+
+Interposição de recursos contra o resultado preliminar.
+
+|
+
+08/04/2026 a 14/04/2026
+
+|
+
+6
+
+|
+
+Análise dos recursos pela Comissão de Seleção.
+
+|
+
+15/04/2026 a 24/04/2026
+
+|
+
+7
+
+|
+
+Homologação e publicação do resultado definitivo da fase de seleção, com divulgação das decisões recursais proferidas (se houver).
+
+|
+
+27/04/2026
+
+LILIAN DOS SANTOS RAHAL

@@ -1,0 +1,17 @@
+# PORTARIA SE/MDS Nº 311, DE 4 DE NOVEMBRO DE 2026
+
+Source: https://www.in.gov.br/web/dou/-/portaria-se/mds-n-311-de-4-de-novembro-de-2026-741916469
+
+Date: 05/11/2026
+
+Section: DO2
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Executiva
+
+## PORTARIA SE/MDS Nº 311, DE 4 DE NOVEMBRO DE 2026
+
+O SECRETÁRIO-EXECUTIVO DO MINISTÉRIO DO DESENVOLVIMENTO E ASSISTÊNCIA SOCIAL, FAMÍLIA E COMBATE À FOME, tendo em vista o que dispõe o Decreto nº 11.392, de 20 de janeiro de 2023, publicado no Diário Oficial da União, de 20 de janeiro de 2023, alterado pelos Decretos nº 11.634, de 14 de agosto de 2023; nº 12.099, de 4 de julho de 2024; nº 12.628, de 17 de setembro de 2025; e nº 12.786, de 19 de dezembro de 2025, no uso das competências que lhe foram delegadas pelo art. 1º, Inciso I, da Portaria/MDS nº 888, de 31 de maio de 2023, publicada no Diário Oficial da União, de 2 de junho de 2023, e ainda, o que consta no Processo nº 71000.085520/2026-70, resolve:
+
+Designar a servidora DANIELA PEREIRA DE BARROS para exercer a Função Comissionada Executiva de Coordenador, código FCE 1.10, da Coordenação de Análise e Monitoramento de Dados, da Coordenação-Geral de Inteligência e Análise de Dados, do Departamento de Soluções Digitais Sociais, da Secretaria Nacional de Integração e Articulação de Plataformas Sociais Eletrônicas, deste Ministério, ficando dispensada da função que atualmente ocupa.
+
+OSMAR RIBEIRO DE ALMEIDA JÚNIOR

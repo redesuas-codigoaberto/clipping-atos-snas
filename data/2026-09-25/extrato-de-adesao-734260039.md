@@ -1,0 +1,959 @@
+# EXTRATO DE ADESÃO
+
+Source: https://www.in.gov.br/web/dou/-/extrato-de-adesao-734260039
+
+Date: 25/09/2026
+
+Section: DO3
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Nacional de Segurança Alimentar e Nutricional
+
+## EXTRATO DE ADESÃO
+
+ADESÃO AO PROGRAMA DE AQUISIÇÃO DE ALIMENTOS
+
+OBJETO: OBJETO: Adesão dos Municípios ao Programa de Aquisição de Alimentos, conforme previsto no Art. 10º da Lei nº 14.628, de 20 de julho de 2023, a fim de cooperar, no âmbito de seu território, para a execução do Programa.
+
+VIGÊNCIA: por tempo indeterminado, a partir da data da publicação do extrato do Termo de Adesão no Diário Oficial da União.
+
+DATA DE ASSINATURA: 23/09/2026
+
+|
+
+EXTRATOS DE ADESÃO
+
+|
+
+Nº Termo de Adesão
+
+|
+
+Nº Processo
+
+|
+
+UF
+
+|
+
+Município
+
+|
+
+Prefeito (a) Municipal
+
+|
+
+CPF
+
+|
+
+02811/2026
+
+|
+
+71000.079320/2013-63
+
+|
+
+BA
+
+|
+
+ITARANTIM
+
+|
+
+FABIO PEREIRA GUSMÃO
+
+|
+
+641 *** ***-82
+
+|
+
+02631/2026
+
+|
+
+71000.080391/2013-17
+
+|
+
+BA
+
+|
+
+SERRINHA
+
+|
+
+CYRO OLIVEIRA SILVA NOVAIS
+
+|
+
+019 *** ***-09
+
+|
+
+02825/2026
+
+|
+
+71000.079689/2013-76
+
+|
+
+CE
+
+|
+
+ALTANEIRA
+
+|
+
+ANA KESIA DE ALCANTARA SOARES
+
+|
+
+804 *** ***-49
+
+|
+
+02822/2026
+
+|
+
+71000.066283/2026-48
+
+|
+
+MA
+
+|
+
+TUFILÂNDIA
+
+|
+
+HENRIQUE EMANOEL RICARDO SANTOS
+
+|
+
+040 *** ***-00
+
+|
+
+02848/2026
+
+|
+
+71000.069094/2026-27
+
+|
+
+MA
+
+|
+
+MATA ROMA
+
+|
+
+BESALIEL FREITAS ALBUQUERQUE
+
+|
+
+505 *** ***-49
+
+|
+
+02818/2026
+
+|
+
+71000.066188/2026-44
+
+|
+
+MS
+
+|
+
+NOVA ALVORADA DO SUL
+
+|
+
+JOSE PAULO PALEARI
+
+|
+
+614 *** ***-63
+
+|
+
+02830/2026
+
+|
+
+71000.079469/2013-42
+
+|
+
+MS
+
+|
+
+NAVIRAÍ
+
+|
+
+RODRIGO MASSUO SACUNO
+
+|
+
+855 *** ***-06
+
+|
+
+02831/2026
+
+|
+
+71000.067278/2026-52
+
+|
+
+MS
+
+|
+
+CHAPADÃO DO SUL
+
+|
+
+WALTER SCHLATTER
+
+|
+
+397 *** ***-34
+
+|
+
+02828/2026
+
+|
+
+71000.066830/2026-95
+
+|
+
+MS
+
+|
+
+PARANHOS
+
+|
+
+HELIOMAR KLABUNDE
+
+|
+
+369 *** ***-91
+
+|
+
+02816/2026
+
+|
+
+71000.065956/2026-42
+
+|
+
+MS
+
+|
+
+ANASTÁCIO
+
+|
+
+MANOEL APARECIDO DA SILVA
+
+|
+
+528 *** ***-91
+
+|
+
+02817/2026
+
+|
+
+71000.066170/2026-42
+
+|
+
+PA
+
+|
+
+TERRA SANTA
+
+|
+
+EDSON SIQUEIRA DA FONSECA
+
+|
+
+031 *** ***-51
+
+|
+
+02810/2026
+
+|
+
+71000.064530/2026-71
+
+|
+
+PB
+
+|
+
+SANTO ANDRÉ
+
+|
+
+EDGLEI AMORIM DO NASCIMENTO
+
+|
+
+048 *** ***-20
+
+|
+
+02813/2026
+
+|
+
+71000.065399/2026-60
+
+|
+
+PB
+
+|
+
+BARRA DE SÃO MIGUEL
+
+|
+
+JOÃO PAULO FRANÇA
+
+|
+
+042 *** ***-39
+
+|
+
+02821/2026
+
+|
+
+71000.066270/2026-79
+
+|
+
+PB
+
+|
+
+CURRAL DE CIMA
+
+|
+
+ADJAMIR SOUZA DA SILVA
+
+|
+
+090 *** ***-02
+
+|
+
+02834/2026
+
+|
+
+71000.079504/2013-23
+
+|
+
+PB
+
+|
+
+SÃO JOÃO DO TIGRE
+
+|
+
+MARCIO ALEXANDRE LEITE
+
+|
+
+804 *** ***-04
+
+|
+
+02824/2026
+
+|
+
+71000.066390/2026-76
+
+|
+
+PB
+
+|
+
+VISTA SERRANA
+
+|
+
+EMMANUEL DA NÓBREGA DIAS
+
+|
+
+703 *** ***-50
+
+|
+
+02823/2026
+
+|
+
+71000.066289/2026-15
+
+|
+
+PB
+
+|
+
+POÇO DE JOSÉ DE MOURA
+
+|
+
+LAÍS RAQUEL DANTAS DE OLIVEIRA
+
+|
+
+082 *** *** -03
+
+|
+
+02836/2026
+
+|
+
+71000.067734/2026-64
+
+|
+
+PB
+
+|
+
+SÃO JOSÉ DO BONFIM
+
+|
+
+ROSALBA GOMES DA NÓBREGA MOTA
+
+|
+
+225 *** *** -68
+
+|
+
+02826/2026
+
+|
+
+71000.066473/2026-65
+
+|
+
+PB
+
+|
+
+NOVA PALMEIRA
+
+|
+
+ANTÔNIO ORLANDO PEREIRA DE ARAÚJO
+
+|
+
+040 *** *** -76
+
+|
+
+02839/2026
+
+|
+
+71000.068678/2026-85
+
+|
+
+PB
+
+|
+
+SÃO DOMINGOS
+
+|
+
+ADEILZA SOARES FREIRES
+
+|
+
+000 *** *** -60
+
+|
+
+02842/2026
+
+|
+
+71000.068655/2026-71
+
+|
+
+PB
+
+|
+
+SÃO JOSÉ DE CAIANA
+
+|
+
+MANOEL PEREIRA DE SOUZA
+
+|
+
+274 *** *** -33
+
+|
+
+02807/2026
+
+|
+
+71000.063515/2026-14
+
+|
+
+PB
+
+|
+
+FREI MARTINHO
+
+|
+
+SEBASTIÃO PINTO DANTAS
+
+|
+
+601 *** *** -72
+
+|
+
+02844/2026
+
+|
+
+71000.068919/2026-96
+
+|
+
+PB
+
+|
+
+SÃO JOSÉ DA LAGOA TAPADA
+
+|
+
+EVILÁSIO FORMIGA LUCENA NETO
+
+|
+
+013 *** *** -10
+
+|
+
+02815/2026
+
+|
+
+71000.065776/2026-61
+
+|
+
+PB
+
+|
+
+ALAGOA NOVA
+
+|
+
+FRANCINILDO PIMENTEL DA SILVA
+
+|
+
+033 *** *** -70
+
+|
+
+02846/2026
+
+|
+
+71000.100350/2022-37
+
+|
+
+PB
+
+|
+
+GADO BRAVO
+
+|
+
+MARCELO PAULINO DA SILVA
+
+|
+
+061 *** *** -03
+
+|
+
+02849/2026
+
+|
+
+71000.069121/2026-61
+
+|
+
+PB
+
+|
+
+CACIMBA DE AREIA
+
+|
+
+HEITOR CARNEIRO CAMPOS
+
+|
+
+091 *** *** -19
+
+|
+
+02843/2026
+
+|
+
+71000.068646/2026-80
+
+|
+
+PB
+
+|
+
+CAIÇARA
+
+|
+
+TARCÍSIO ALBERTO LOPES SOARES
+
+|
+
+721 *** *** -53
+
+|
+
+02808/2026
+
+|
+
+71000.079298/2013-51
+
+|
+
+PE
+
+|
+
+CARNAÍBA
+
+|
+
+WAMBERG ANTONIO GOMES AMARAL
+
+|
+
+653 *** *** -78
+
+|
+
+02833/2026
+
+|
+
+71000.067685/2026-60
+
+|
+
+PE
+
+|
+
+ALIANÇA
+
+|
+
+PEDRO ERMÍRIO DE ALMEIDA FREITAS FILHO
+
+|
+
+149 *** *** -77
+
+|
+
+02851/2026
+
+|
+
+71000.079262/2013-78
+
+|
+
+PE
+
+|
+
+FLORESTA
+
+|
+
+ROSANGELA DE MOURA MANIÇOBA NOVAES FERRAZ
+
+|
+
+193 *** *** -87
+
+|
+
+02838/2026
+
+|
+
+71000.068319/2026-28
+
+|
+
+PE
+
+|
+
+BUENOS AIRES
+
+|
+
+HENRIQUE JOSÉ QUEIROZ COSTA
+
+|
+
+024 *** *** -63
+
+|
+
+02812/2026
+
+|
+
+71000.065361/2026-97
+
+|
+
+RN
+
+|
+
+MACAÍBA
+
+|
+
+EDIVALDO EMÍDIO DA SILVA JÚNIOR
+
+|
+
+069 *** *** -96
+
+|
+
+02809/2026
+
+|
+
+71000.064502/2026-54
+
+|
+
+RN
+
+|
+
+SÃO PAULO DO POTENGI
+
+|
+
+EUGÊNIO PACELLI ARAÚJO SOUTO
+
+|
+
+367 *** *** -34
+
+|
+
+02819/2026
+
+|
+
+71000.066237/2026-49
+
+|
+
+RR
+
+|
+
+IRACEMA
+
+|
+
+MARLENE SARAIVA ARAÚJO
+
+|
+
+633 *** *** -68
+
+|
+
+02732/2026
+
+|
+
+71000.000301/2023-86
+
+|
+
+SE
+
+|
+
+ROSÁRIO DO CATETE
+
+|
+
+ANTÔNIO CÉSAR CORREIA DINIZ DE RESENDE
+
+|
+
+456 *** *** -49
+
+|
+
+02829/2026
+
+|
+
+71000.066879/2026-48
+
+|
+
+SP
+
+|
+
+DOBRADA
+
+|
+
+ANTÔNIO CARLOS DE MATTOS SANTOS
+
+|
+
+073 *** *** -05
+
+|
+
+02835/2026
+
+|
+
+71000.067716/2026-82
+
+|
+
+SP
+
+|
+
+GUARUJÁ
+
+|
+
+FARID SAID MADI
+
+|
+
+063 *** *** -09
+
+|
+
+02789/2026
+
+|
+
+71000.055848/2026-61
+
+|
+
+TO
+
+|
+
+PEQUIZEIRO
+
+|
+
+JOCELIO NOBRE DA SILVA
+
+|
+
+900 *** *** -20

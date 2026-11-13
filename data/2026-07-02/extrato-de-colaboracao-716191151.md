@@ -1,0 +1,13 @@
+# EXTRATO DE COLABORAÇÃO
+
+Source: https://www.in.gov.br/web/dou/-/extrato-de-colaboracao-716191151
+
+Date: 02/07/2026
+
+Section: DO3
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Nacional de Assistência Social
+
+## EXTRATO DE COLABORAÇÃO
+
+ESPÉCIE: Termo de Colaboração SNAS/MDS nº 1/2026. PARTÍCIPES: A União, por intermédio do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), CNPJ nº 05.526.783/0001-65, neste ato representado pela Secretaria Nacional de Assistência Social (SNAS), e a Associação Voluntários para o Serviço Internacional - Brasil (AVSI Brasil), Organização da Sociedade Civil (OSC), CNPJ º 08.929.748/0001-85. OBJETO: Termo de colaboração visando a execução de gestão de abrigos e assistência humanitária para refugiados e migrantes provenientes do fluxo migratório na fronteira, com foco na proteção socioassistencial, promoção do desenvolvimento integral de crianças e adolescentes e fortalecimento de estratégias de integração socioeconômica, em consonância com os princípios humanitários e de proteção social, visando à consecução de finalidade de interesse público e recíproco, conforme especificações estabelecidas no Plano de Trabalho. VIGÊNCIA: 9,5 meses (nove meses e meio) a partir da data de assinatura, podendo ser prorrogado mediante termo aditivo, por solicitação da OSC devidamente fundamentada, formulada, no mínimo, 30 (trinta) dias antes do seu término, desde que autorizada pela Administração Pública, ou de ofício, por iniciativa da Administração Pública, quando esta der causa a atraso na liberação de recursos financeiros, limitada ao exato período do atraso verificado. VALOR: R$ 18.000.000,00 (dezoito milhões de reais). AÇÃO ORÇAMENTÁRIA: 21H0 - Acolhimento, Gestão e Atendimento Socioassistencial a Indivíduos e Famílias em Situação de Vulnerabilidade e Risco Social Decorrente de Crise Humanitária, Emergência, Calamidade Pública e Emergência de Saúde Pública de Importância Nacional (ESPIN); PTRES 250723; Elemento de Despesa: 339039; Unidade Gestora: 550011 (SNAS). Nota de Empenho Nº 2026NE000003: R$ 14.975.994,00 (quatorze milhões, novecentos e setenta e cinco mil, novecentos e noventa e quatro reais), Fonte 1001000000; Nota de Empenho Nº 2026NE000004: R$ 3.024.006,00 (três milhões, vinte e quatro mil e seis reais), Fonte 1000000000. Proposta TransfereGov nº 028174/2026. FUNDAMENTAÇÃO LEGAL: Lei nº 13.019, de 31 de julho de 2014, e Decreto nº 8.726, de 27 de abril de 2016. PROCESSO: 71000.034056/2026-53. DATA DE ASSINATURA: 30 de junho de 2026. SIGNATÁRIOS: Rosilene Cristina Rocha, Secretária Nacional de Assistência Social do MDS, e Fabrizio Pellicelli, Diretor Presidente da AVSI Brasil.

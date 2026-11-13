@@ -1,0 +1,19 @@
+# PORTARIAS/SAA/SE/MDS, dE 13 DE FEVEREIRO DE 2026
+
+Source: https://www.in.gov.br/web/dou/-/portarias/saa/se/mds-de-13-de-fevereiro-de-2026-687448894
+
+Date: 18/02/2026
+
+Section: DO2
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Executiva/Subsecretaria de Assuntos Administrativos
+
+## PORTARIAS/SAA/SE/MDS, dE 13 DE FEVEREIRO DE 2026
+
+A SUBSECRETÁRIA DE ASSUNTOS ADMINISTRATIVOS DA SECRETARIA-EXECUTIVA DO MINISTÉRIO DO DESENVOLVIMENTO E ASSISTÊNCIA SOCIAL, FAMÍLIA E COMBATE À FOME, tendo em vista o que dispõe o Decreto nº 11.392, de 20 de janeiro de 2023, publicado no Diário Oficial da União, de 20 de janeiro de 2023, alterado pelos Decretos nº 11.634, de 14 de agosto de 2023; nº 12.099, de 4 de julho de 2024; nº 12.628, de 17 de setembro de 2025; e nº 12.786, de 19 de dezembro de 2025, no uso das atribuições que lhe foram conferidas pelo art. 1º, da Portaria/SE/MDS nº 362, de 1º de junho de 2023, publicada no Diário Oficial da União, de 2 de junho de 2023, de acordo com o art. 38 da Lei nº 8.112, de 1990 e, ainda, o que consta no Processo nº 71000.004846/2026-12, resolve:
+
+Nº 136 - Dispensar o servidor FAUSTO DOS ANJOS ALVIM do encargo de substituto eventual da Função Comissionada Executiva de Coordenador, código FCE 1.10, da Coordenação de Orçamento e Finanças, da Coordenação-Geral de Contrato, Orçamento e Finanças, do Departamento de Gestão Contratual e Financeira, da Secretaria de Avaliação, Gestão da Informação e Cadastro Único, deste Ministério.
+
+Nº 137 - Designar o servidor LUIZ FERNANDO DIAS TELES para exercer o encargo de substituto eventual da Função Comissionada Executiva de Coordenador, código FCE 1.10, da Coordenação de Orçamento e Finanças, da Coordenação-Geral de Contrato, Orçamento e Finanças, do Departamento de Gestão Contratual e Financeira, da Secretaria de Avaliação, Gestão da Informação e Cadastro Único, deste Ministério, em seus afastamentos ou impedimentos legais e regulamentares do titular e na vacância da função.
+
+ARIANE SIDIA BENIGNO SILVA FELIPE

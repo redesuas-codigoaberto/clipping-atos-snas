@@ -1,0 +1,767 @@
+# EXTRATO DE ADESÃO
+
+Source: https://www.in.gov.br/web/dou/-/extrato-de-adesao-723703906
+
+Date: 06/08/2026
+
+Section: DO3
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Secretaria Nacional de Segurança Alimentar e Nutricional
+
+## EXTRATO DE ADESÃO
+
+AO PROGRAMA DE AQUISIÇÃO DE ALIMENTOS
+
+OBJETO: Adesão dos Municípios ao Programa de Aquisição de Alimentos, conforme previsto no Art. 10º da Lei nº 14.628, de 20 de julho de 2023, a fim de cooperar, no âmbito de seu território, para a execução do Programa.
+
+VIGÊNCIA: por tempo indeterminado, a partir da data da publicação do extrato do Termo de Adesão no Diário Oficial da União.
+
+DATA DE ASSINATURA: 05/08/2026
+
+|
+
+EXTRATOS DE ADESÃO
+
+|
+
+Nº Termo de Adesão
+
+|
+
+Nº Processo
+
+|
+
+UF
+
+|
+
+Município
+
+|
+
+Prefeito (a) Municipal
+
+|
+
+CPF
+
+|
+
+02796/2026
+
+|
+
+71000.074147/2013-15
+
+|
+
+BA
+
+|
+
+NOVA SOURE
+
+|
+
+ALAN CAMILO BARRETO REIS
+
+|
+
+063.*** ***-61
+
+|
+
+02763/2026
+
+|
+
+71000.081649/2013-94
+
+|
+
+BA
+
+|
+
+QUEIMADAS
+
+|
+
+RICARDO MARCOS BATISTA LOPES
+
+|
+
+870.*** ***-68
+
+|
+
+02769/2026
+
+|
+
+71000.072306/2013-39
+
+|
+
+BA
+
+|
+
+ABAIRA
+
+|
+
+WELLINGTON BARBOSA SILVA
+
+|
+
+012.*** ***-84
+
+|
+
+02775/2026
+
+|
+
+71000.079876/2013-50
+
+|
+
+BA
+
+|
+
+ITAQUARA
+
+|
+
+ROGÉRIO RODRIGUES DOS SANTOS
+
+|
+
+028.*** ***-70
+
+|
+
+02793/2026
+
+|
+
+71000.056977/2026-77
+
+|
+
+BA
+
+|
+
+ITABERABA
+
+|
+
+JOÃO ALMEIDA MASCARENHAS FILHO
+
+|
+
+512.*** ***-34
+
+|
+
+02799/2026
+
+|
+
+71000.131284/2012-75
+
+|
+
+BA
+
+|
+
+TANQUE NOVO
+
+|
+
+PAULO RICARDO BONFIM CARNEIRO
+
+|
+
+997.*** ***-34
+
+|
+
+02754/2026
+
+|
+
+71000.051843/2026-60
+
+|
+
+CE
+
+|
+
+JARDIM
+
+|
+
+ANTONIO FERNANDO COUTINHO
+
+|
+
+059.*** ***-00
+
+|
+
+02768/2026
+
+|
+
+71000.053821/2026-34
+
+|
+
+CE
+
+|
+
+CAPISTRANO
+
+|
+
+CLAUDIO BEZERRA SARAIVA
+
+|
+
+229.*** ***-00
+
+|
+
+02778/2026
+
+|
+
+71000.054419/2026-77
+
+|
+
+CE
+
+|
+
+GENERAL SAMPAIO
+
+|
+
+JOÃO PAULO SALES CORDEIRO
+
+|
+
+059.*** ***-06
+
+|
+
+02771/2026
+
+|
+
+71000.080393/2013-06
+
+|
+
+CE
+
+|
+
+PARAMOTI
+
+|
+
+ANTONIA TELVANIA FERREIRA BRAZ BARRETO
+
+|
+
+842.*** ***-15
+
+|
+
+02784/2026
+
+|
+
+71000.055164/2026-60
+
+|
+
+GO
+
+|
+
+ANÁPOLIS
+
+|
+
+MARCIO AURELIO CORREA
+
+|
+
+902.******-72
+
+|
+
+02764/2026
+
+|
+
+71000.053490/2026-32
+
+|
+
+MS
+
+|
+
+TERENOS
+
+|
+
+HENRIQUE WANCURA BUDKE
+
+|
+
+017.*** ***-80
+
+|
+
+02761/2026
+
+|
+
+71000.053232/2026-56
+
+|
+
+MT
+
+|
+
+JACIARA
+
+|
+
+ANDREIA WAGNER
+
+|
+
+632.*** ***-15
+
+|
+
+02777/2026
+
+|
+
+71000.054366/2026-94
+
+|
+
+MT
+
+|
+
+NOVO MUNDO
+
+|
+
+CASCIANO MARTINS REIS
+
+|
+
+848.*** ***-34
+
+|
+
+02790/2026
+
+|
+
+71000.055964/2026-81
+
+|
+
+PA
+
+|
+
+PARAGOMINAS
+
+|
+
+SHYDNEY JORGE ROSA
+
+|
+
+324.*** ***-04
+
+|
+
+02770/2026
+
+|
+
+71000.053837/2026-47
+
+|
+
+PE
+
+|
+
+ITAMBE
+
+|
+
+ARMANDO PIMENTEL DA ROCHA
+
+|
+
+611.*** ***-15
+
+|
+
+02786/2026
+
+|
+
+71000.055341/2026-16
+
+|
+
+PE
+
+|
+
+CAETES
+
+|
+
+NIVALDO DA SILVA MARTINS
+
+|
+
+749.*** ***-72
+
+|
+
+02794/2026
+
+|
+
+71000.057247/2026-93
+
+|
+
+PE
+
+|
+
+SALGUEIRO
+
+|
+
+FÁBIO LISANDRO DE LIMA BARROS
+
+|
+
+482.*** ***-68
+
+|
+
+02788/2026
+
+|
+
+71000.055581/2026-11
+
+|
+
+PE
+
+|
+
+CORRENTES
+
+|
+
+EDIMILSON DA BAHIA DE LIMA GOMES
+
+|
+
+836.*** ***-53
+
+|
+
+02783/2026
+
+|
+
+71000.055181/2026-05
+
+|
+
+RN
+
+|
+
+GOIANINHA
+
+|
+
+HOSANIRA GALVÃO
+
+|
+
+721.*** ***-00
+
+|
+
+02756/2026
+
+|
+
+71000.046345/2026-03
+
+|
+
+RN
+
+|
+
+ITAJÁ
+
+|
+
+JOÃO EUDES FERREIRA FILHO
+
+|
+
+047.*** ***-89
+
+|
+
+02781/2026
+
+|
+
+71000.048682/2013-11
+
+|
+
+RS
+
+|
+
+SANT' ANA DO LIVRAMENTO
+
+|
+
+EVANDRO GUTEBIER MACHADO
+
+|
+
+734.*** ***-87
+
+|
+
+02787/2026
+
+|
+
+71000.055527/2026-67
+
+|
+
+SC
+
+|
+
+PAULO LOPES
+
+|
+
+FERNANDA RODRIGUES LEITE
+
+|
+
+038.*** ***-07
+
+|
+
+02791/2026
+
+|
+
+71000.056361/2026-04
+
+|
+
+SC
+
+|
+
+SÃO JOÃO BATISTA
+
+|
+
+JULIANO PEIXER
+
+|
+
+005.*** ***-30
+
+|
+
+02746/2026
+
+|
+
+71000.079899/2013-64
+
+|
+
+SE
+
+|
+
+PACATUBA
+
+|
+
+IARA MARIA FEITOSA DE LIMA MARTINS
+
+|
+
+661.*** ***-00
+
+|
+
+02776/2026
+
+|
+
+71000.054269/2026-00
+
+|
+
+SE
+
+|
+
+TOMAR DO GERU
+
+|
+
+JADSON DE JESUS
+
+|
+
+807.*** ***-04
+
+|
+
+02782/2026
+
+|
+
+71000.079896/2013-21
+
+|
+
+SE
+
+|
+
+RIACHUELO
+
+|
+
+PETERSON DANTAS ARAÚJO
+
+|
+
+886.*** ***-91
+
+|
+
+02780/2026
+
+|
+
+71000.079280/2013-50
+
+|
+
+SE
+
+|
+
+SANTO AMARO DAS BROTAS
+
+|
+
+PAULO CESAR OLIVEIRA SOUZA
+
+|
+
+272.*** ***-34
+
+|
+
+02750/2026
+
+|
+
+71000.079476/2013-44
+
+|
+
+SE
+
+|
+
+PINHÃO
+
+|
+
+CHARLES WAGNER NUNES OLIVEIRA
+
+|
+
+905.*** ***-15
+
+|
+
+02766/2026
+
+|
+
+71000.053609/2026-77
+
+|
+
+SP
+
+|
+
+PIRACICABA
+
+|
+
+HÉLIO DONIZETE ZANATTA
+
+|
+
+046.*** ***-44
