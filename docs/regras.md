@@ -6,10 +6,10 @@ O clipping automático monta, para cada edição do Diário Oficial da União (D
 
 ## Quais atos entram
 
-O programa examina somente os atos do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS). Entram no clipping:
+O programa examina os atos do ministério da SNAS, com o nome que o DOU lhe dava na data do ato (o MDS atual e, em anos anteriores, os nomes de [ministerios.md](ministerios.md)), e os atos da SNAS que o DOU classificou em outro ministério. Entram no clipping:
 
-1. todos os atos publicados pela Secretaria Nacional de Assistência Social (SNAS), pelo Conselho Nacional de Assistência Social (CNAS), pela Comissão Intergestores Tripartite (CIT) do Sistema Único de Assistência Social (SUAS) ou pelo Departamento da Rede Socioassistencial Privada do SUAS;
-2. os outros atos do MDS que mencionam, no título ou no texto, qualquer destas expressões:
+1. todos os atos publicados pela Secretaria Nacional de Assistência Social (SNAS), pelo Conselho Nacional de Assistência Social (CNAS), pela Comissão Intergestores Tripartite (CIT) do Sistema Único de Assistência Social (SUAS) ou pelo Departamento da Rede Socioassistencial Privada do SUAS, sem distinguir maiúsculas de minúsculas, porque até 2017 o DOU escrevia as unidades em maiúsculas;
+2. os outros atos do ministério que mencionam, no título ou no texto, qualquer destas expressões:
    - SNAS, CNAS ou SUAS;
    - “Sistema Único de Assistência Social”;
    - “Secretaria Nacional de Assistência Social”, também nas formas “Secretária” e “Secretário”, com ou sem acento;
@@ -17,7 +17,7 @@ O programa examina somente os atos do Ministério do Desenvolvimento e Assistên
 
 As siglas só são reconhecidas em letras maiúsculas, porque “suas” também é pronome. Quando um ato escreve “Suas”, em geral o nome por extenso aparece no mesmo texto.
 
-Atos de outros órgãos não entram, mesmo quando citam a SNAS, o CNAS ou o SUAS. Em 2026 houve 9 casos assim, quase todos contratos e licitações de prefeituras, e nenhum interessava ao clipping.
+Atos de outros órgãos, que não sejam unidades da SNAS, não entram, mesmo quando citam a SNAS, o CNAS ou o SUAS. Em 2026 houve 9 casos assim, quase todos contratos e licitações de prefeituras, e nenhum interessava ao clipping.
 
 ## Como o resumo é escolhido
 

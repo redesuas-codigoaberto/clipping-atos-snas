@@ -8,7 +8,7 @@ import re
 from html.parser import HTMLParser
 from pathlib import Path
 
-from clipping import MDS
+from clipping import is_candidate
 from dou_fetch import get_html
 
 
@@ -78,7 +78,7 @@ def main():
     index_data = json.loads(args.index.read_text(encoding='utf-8'))
     entries = index_data['articles']
     output_dir = args.output_dir / index_data['date']
-    matches = [a for a in entries if MDS in a['hierarchyList']]
+    matches = [a for a in entries if is_candidate(a)]
     output_dir.mkdir(parents=True, exist_ok=True)
     for article in matches:
         path = output_dir / (article['urlTitle'].rsplit('/', 1)[-1] + '.md')

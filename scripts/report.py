@@ -11,7 +11,7 @@ import shutil
 from pathlib import Path
 
 import dates
-from clipping import MDS, assess_day, clipping_text, excerpt, identifier
+from clipping import MINISTRIES, assess_day, clipping_text, excerpt, identifier
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / 'templates' / 'report.html'
@@ -80,9 +80,10 @@ def compare_emails(generated, manual_bodies, manual_ids):
 
 def short_org(hierarchy):
     """The unit right below the ministry, or the top body for outside acts."""
-    if MDS in hierarchy:
-        position = hierarchy.index(MDS)
-        return hierarchy[position + 1] if position + 1 < len(hierarchy) else MDS
+    ministry = next((part for part in hierarchy if part in MINISTRIES), None)
+    if ministry:
+        position = hierarchy.index(ministry)
+        return hierarchy[position + 1] if position + 1 < len(hierarchy) else ministry
     return hierarchy[0] if hierarchy else ''
 
 

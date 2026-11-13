@@ -9,6 +9,16 @@ from pathlib import Path
 import dates
 
 MDS = 'Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome'
+# Every name the DOU gave the SNAS ministry since 2004 (docs/ministerios.md). None was reused for another body,
+# so an act under any of them is a candidate on any date, without looking up which name was current.
+MINISTRIES = (
+    'Ministério da Assistência Social',
+    'Ministério do Desenvolvimento Social e Combate à Fome',
+    'Ministério do Desenvolvimento Social e Agrário',
+    'Ministério do Desenvolvimento Social',
+    'Ministério da Cidadania',
+    MDS,
+)
 DIRECT_ORGS = (
     'Secretaria Nacional de Assistência Social',
     'Conselho Nacional de Assistência Social',
@@ -53,19 +63,28 @@ def identifier(article):
     return article['urlTitle'].rsplit('-', 1)[-1]
 
 
+def names_direct_org(part):
+    """Whether a hierarchy level names an SNAS body; until 2017 the DOU wrote the units in capitals."""
+    return any(org.casefold() in part.casefold() for org in DIRECT_ORGS)
+
+
 def is_candidate(article):
-    """Only acts published by the MDS are evaluated."""
-    return MDS in article.get('hierarchyList', [])
+    """Acts of the ministry, under any of its names, and SNAS acts the DOU filed elsewhere are evaluated."""
+    hierarchy = article.get('hierarchyList', [])
+    return any(name in hierarchy for name in MINISTRIES) or any(names_direct_org(part) for part in hierarchy)
 
 
 def assess(article, full_text=''):
-    """Return ('suggest' or 'review', reasons) for an MDS act."""
+    """Return ('suggest' or 'review', reasons) for a candidate act."""
     hierarchy = article.get('hierarchyList', [])
-    reasons = [f'organization: {org}' for org in DIRECT_ORGS if any(org in part for part in hierarchy)]
+    reasons = [
+        f'organization: {org}' for org in DIRECT_ORGS if any(org.casefold() in part.casefold() for part in hierarchy)
+    ]
     if reasons:
         return 'suggest', reasons
     content = ' '.join(str(article.get(key, '')) for key in ('title', 'content')) + ' ' + full_text
-    content = re.sub(re.escape(MDS), '', content, flags=re.I)
+    for name in MINISTRIES:
+        content = re.sub(re.escape(name), '', content, flags=re.I)
     reasons = [reason for pattern, reason in TERMS if re.search(pattern, content, re.I)]
     return ('suggest' if reasons else 'review'), reasons or ['no direct SNAS relevance signal']
 
@@ -128,7 +147,9 @@ def excerpt(article, full_text=''):
         blocks = [re.sub(r'\s+', ' ', block).strip() for block in re.split(r'\n\s*\n', body)]
         blocks = [block for block in blocks if block and not block.startswith('#')]
         resolution = next((i for i, block in enumerate(blocks) if block.rstrip().endswith('resolve:')), None)
-        contract = contract_object(blocks) if article.get('artType', '').startswith('Extrato de Contrato') else ''
+        contract = (
+            contract_object(blocks) if article.get('artType', '').casefold().startswith('extrato de contrato') else ''
+        )
         if contract:
             value = contract
         elif resolution is not None and resolution > 0:

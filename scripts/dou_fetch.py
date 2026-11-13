@@ -23,7 +23,12 @@ def retry_delay(attempt, retry_after=None):
 
 
 def get_html(url, sleep=time.sleep):
-    """The page at `url` decoded as UTF-8.
+    """The page at `url` decoded as UTF-8 (see get_bytes for the retries)."""
+    return get_bytes(url, sleep).decode('utf-8')
+
+
+def get_bytes(url, sleep=time.sleep):
+    """The body at `url`.
 
     HTTP 429 and 5xx answers, timeouts and network errors are retried; other HTTP errors are raised at once.
     """
@@ -32,7 +37,7 @@ def get_html(url, sleep=time.sleep):
         last = attempt == ATTEMPTS - 1
         try:
             with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
-                return response.read().decode('utf-8')
+                return response.read()
         # HTTPError is a subclass of OSError, so it must be handled first.
         except urllib.error.HTTPError as exc:
             if exc.code not in RETRY_STATUSES or last:

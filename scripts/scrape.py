@@ -9,7 +9,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import dates
-from clipping import MDS
+from clipping import is_candidate
 from dou_fetch import get_html
 
 BASE = 'https://www.in.gov.br/leiturajornal'
@@ -54,8 +54,8 @@ def main():
         articles.extend(found)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     path = args.output_dir / f'{dates.name(args.date)}.json'
-    # Only MDS acts are evaluated, so the index keeps just them; count is the size of the whole edition.
-    mds = [article for article in articles if MDS in article['hierarchyList']]
+    # Only candidates are evaluated, so the index keeps just them; count is the size of the whole edition.
+    mds = [article for article in articles if is_candidate(article)]
     path.write_text(
         json.dumps(
             {'date': dates.name(args.date), 'count': len(articles), 'articles': mds}, ensure_ascii=False, indent=2

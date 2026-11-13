@@ -4,7 +4,17 @@ import datetime as dt
 
 import pytest
 
-from clipping import NOTHING, SIGNATURE, SUMMARY_LIMIT, assess, clipping_text, excerpt, identifier, is_candidate
+from clipping import (
+    MINISTRIES,
+    NOTHING,
+    SIGNATURE,
+    SUMMARY_LIMIT,
+    assess,
+    clipping_text,
+    excerpt,
+    identifier,
+    is_candidate,
+)
 from conftest import make_article, make_full_text
 
 PREAMBLE = 'O SECRETÁRIO NACIONAL DE ASSISTÊNCIA SOCIAL, no uso das atribuições que lhe confere o Decreto, resolve:'
@@ -14,9 +24,32 @@ def test_identifier_is_the_numeric_suffix(article):
     assert identifier(article) == '123456789'
 
 
-def test_only_mds_acts_are_candidates(article):
+def test_only_acts_of_the_ministry_are_candidates(article):
     assert is_candidate(article)
     assert not is_candidate({**article, 'hierarchyList': ['Ministério da Saúde']})
+
+
+@pytest.mark.parametrize('name', MINISTRIES)
+def test_every_name_the_ministry_had_is_accepted(article, name):
+    assert is_candidate({**article, 'hierarchyList': [name, 'Gabinete do Ministro']})
+
+
+@pytest.mark.parametrize(
+    'hierarchy',
+    [
+        # The DOU filed some SNAS acts under another ministry, and wrote the units in capitals until 2017.
+        ['Ministério de Minas e Energia', 'SECRETARIA NACIONAL DE ASSISTÊNCIA SOCIAL'],
+        ['Departamento da Rede Socioassistencial Privada do Sistema Único de Assistência Social'],
+    ],
+)
+def test_snas_acts_filed_elsewhere_are_candidates(article, hierarchy):
+    assert is_candidate({**article, 'hierarchyList': hierarchy})
+    assert assess({**article, 'hierarchyList': hierarchy})[0] == 'suggest'
+
+
+def test_a_capitalized_unit_is_a_direct_organization(article):
+    hierarchy = ['Ministério do Desenvolvimento Social e Agrário', 'SECRETARIA NACIONAL DE ASSISTÊNCIA SOCIAL']
+    assert assess({**article, 'hierarchyList': hierarchy})[0] == 'suggest'
 
 
 # --- selection ---
