@@ -76,8 +76,8 @@ input, select { min-height: 32px; background: var(--bg); border: 1px solid var(-
 @media (max-width: 720px) { .govbar span:last-child, .govbar .sep { display: none; } }
 .bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 24px; height: var(--bar);
   padding: 0 var(--inline); background: var(--bg); box-shadow: var(--shadow); }
-.bar nav { display: flex; align-self: stretch; }
-.bar nav a { display: flex; align-items: center; padding: 0 12px; color: var(--fg2); font-weight: 500;
+.bar nav { display: flex; align-self: stretch; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.bar nav a { display: flex; align-items: center; padding: 0 12px; white-space: nowrap; color: var(--fg2); font-weight: 500;
   border-bottom: 4px solid transparent; border-top: 4px solid transparent; }
 .bar nav a:hover { color: var(--accent); background: var(--accent-soft); text-decoration: none; }
 .bar nav a.on { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
@@ -221,6 +221,40 @@ mark.sel-a { background: color-mix(in srgb, var(--accent) 30%, transparent); }
 /* clipping-only page (index.html): the other tabs are hidden */
 body[data-only] #tabs a:not([data-v="clipping"]) { display: none; }
 @media (max-width: 1000px) { .board { grid-template-columns: 280px minmax(0, 1fr); height: auto; } .side { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); } }
+
+/* Narrow screens. The header keeps the title and theme button on one line and the tabs, scrollable, on the next. */
+@media (max-width: 900px) {
+  .bar { flex-wrap: wrap; height: auto; gap: 0 16px; padding-top: 8px; }
+  .bar nav { order: 3; flex-basis: 100%; height: 44px; margin: 0 -12px; }
+}
+/* Phones: one column everywhere, and wide content scrolls inside its own box instead of the page. */
+@media (max-width: 700px) {
+  .bar { position: static; }
+  .top { flex-wrap: wrap; row-gap: 6px; }
+  .top h1 { flex: 1 1 auto; }
+  .top .right { margin-left: 0; flex-basis: 100%; }
+  .board { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .board > section { overflow: visible; }
+  /* The act list scrolls in its own box, so a long day does not push the act text far down. */
+  .board > .list { border-right: 0; border-bottom: 1px solid var(--line); max-height: 45vh; overflow: auto; }
+  .doc { padding: 16px 18px 32px; }
+  .side { border-left: 0; border-top: 1px solid var(--line); }
+  .heat { overflow-x: auto; }
+  .heat svg { max-width: none; }
+  th.n { white-space: normal; }
+  .filters { flex-wrap: wrap; }
+  #q { flex-basis: 100%; }
+  .filters select { max-width: 100%; flex: 1; }
+  .emails { padding: 14px var(--inline); }
+  .pair .head { flex-wrap: wrap; }
+  .pair .head .muted { margin-left: 0; white-space: normal; }
+  .pair .cols, .acols { grid-template-columns: minmax(0, 1fr); }
+  .pair .cols > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .acols > section + section { border-left: 0; border-top: 1px solid var(--line); }
+  .abox { width: 100vw; height: 100vh; border-radius: 0; }
+  .ahead { flex-wrap: wrap; }
+  .foot .links { align-items: flex-start; }
+}
 </style>
 </head>
 <body data-only="__ONLY__">
