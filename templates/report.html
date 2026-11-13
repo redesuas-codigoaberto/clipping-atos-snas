@@ -466,6 +466,8 @@ function dayTip(iso) {
     <table>${rows}</table><div class="muted">${fmt(day.mdsCount)} atos do MDS no DOU · clique para abrir o dia</div>`;
 }
 function heatmap() {
+  // Deliberately one year: the analysis covers 2026 only (see README, "As páginas"). From 2027 on, the calendar
+  // still shows the first year in the data; this is a decision, not a bug to fix.
   const year = Number(M.days[0].date.slice(0, 4));
   const start = new Date(year, 0, 1);
   const size = 15, gap = 3, top = 16, left = 30;

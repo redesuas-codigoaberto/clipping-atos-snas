@@ -53,6 +53,8 @@ A página inicial (`index.html`) mostra só o email gerado pelo programa, com o 
 
 `relatorio.html` é o relatório completo, que compara a seleção da regra com os clippings enviados pela equipe em cinco abas: Análise ano, Regras, Clipping, Comparativo resumos e Análise dia. As duas páginas são recalculadas a cada execução.
 
+A aba Análise ano cobre só 2026, o ano da comparação com os clippings da equipe, e não será adaptada a outros anos. A partir de 2027, o calendário continua mostrando 2026, e os dias novos não aparecem nele.
+
 As páginas seguem a identidade visual do gov.br: a fonte Rawline, as cores e os componentes do [Padrão Digital de Governo](https://www.gov.br/ds/), a barra do gov.br no topo e o rodapé em azul-escuro. O botão ◐ alterna entre o tema claro e o escuro.
 
 As páginas do GitHub Pages são públicas.
