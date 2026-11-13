@@ -36,6 +36,7 @@ Quando uma execução falha, o workflow abre a issue “Falha no clipping diári
 | `data/DD-MM-AAAA/*.md` | Texto de cada ato do MDS. |
 | `data/located.json` | Data e órgão dos atos de fora do MDS citados nos clippings manuais de 2026, tirados dos índices completos do DOU. |
 | `clipping-novo/DD-MM-AAAA.md` | Email do clipping gerado. |
+| `clipping-historico/DD-MM-AAAA.md` | Clippings de 2004 a 2025, gerados pelas regras atuais e ainda sem comparação com clippings da equipe. |
 | `clipping-antigo/*.md` | Clippings enviados pela equipe, sem o cabeçalho do email. |
 | `docs/regras.md` | Explicação das regras, exibida na aba Regras do relatório. |
 | `scripts/` | Os scripts do clipping, das páginas e do relatório. |
@@ -121,6 +122,25 @@ Os testes comparam o resultado das regras com o arquivo de 2026:
 Os testes também abrem as páginas geradas no Chrome (ou Chromium) instalado, em largura de celular e de desktop. Eles falham se houver erro de JavaScript, arquivo que não carrega ou conteúdo mais largo que a tela, e também conferem a janela de comparação num iPhone emulado. Sem navegador instalado, esses testes são pulados; nos workflows, que definem `REQUIRE_BROWSER`, eles falham. No workflow diário, os testes rodam antes da publicação, então uma página quebrada não vai ao ar.
 
 Ao mudar uma regra de propósito, rode `make regenerate` e confira no diff quais clippings antigos mudaram. Se a concordância melhorar, atualize os números mínimos em `tests/test_archive.py`.
+
+## Histórico de 2004 a 2025
+
+O clipping de 2004 a 2025 sai de duas fontes, e o ministério da SNAS teve seis nomes nesse período (veja `docs/ministerios.md`, que também lista as lacunas das fontes). Tudo o que se baixa fica em `cache/`, que o git ignora, e cada etapa retoma de onde parou ao ser executada de novo com os mesmos argumentos. Para parar, use Ctrl+C. Rode os comandos a partir da raiz do repositório.
+
+```bash
+# 2004 a 2017: arquivos XML mensais dos dados abertos da Imprensa Nacional (cerca de 10 GB de zips)
+python scripts/dou_xml.py --start 01-01-2004 --end 29-11-2017 --data-dir cache/historico/data
+
+# 2018 em diante (e 30-11-2017 a 31-12-2017): página de leitura, sem filtrar, e depois índices e textos
+python scripts/backfill_html.py --start 30-11-2017 --end 31-12-2025
+python scripts/build_html_days.py --start 30-11-2017 --end 31-12-2025
+
+make regenerate-historico   # grava clipping-historico/ a partir de cache/historico/data
+```
+
+Com um processo só, a página de leitura é lenta (cerca de 3 datas por minuto). Divida o período em faixas de dois anos e rode uma faixa em cada processo, em segundo plano. Na primeira execução, de 2018 a 2025, isso levou cerca de três horas. `build_html_days.py` ignora as datas que `backfill_html.py` ainda não terminou; rode-o de novo ao fim para pegar essas datas.
+
+Só os clippings de `clipping-historico/` são versionados. Os índices e os textos dos atos de 2004 a 2025 somam mais de 600 MB em mais de 90 mil arquivos.
 
 ## Licença
 
