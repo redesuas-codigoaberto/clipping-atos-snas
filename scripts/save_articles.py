@@ -70,37 +70,41 @@ class ArticleParser(HTMLParser):
         self.block = None
 
 
+def save_article(article, output_dir):
+    """Download one act and write it as Markdown; returns the path, or None when it was already saved."""
+    path = output_dir / (article['urlTitle'].rsplit('/', 1)[-1] + '.md')
+    if path.is_file() and path.stat().st_size > 0:
+        return None
+    url = article['url']
+    parser = ArticleParser()
+    parser.feed(get_html(url))
+    parser.flush()
+    if not parser.blocks:
+        raise RuntimeError(f'No article body found: {url}')
+    header = [
+        f'# {article["title"]}',
+        f'Source: {url}',
+        f'Date: {article["pubDate"]}',
+        f'Section: {article["pubName"]}',
+        f'Organization: {article["hierarchyStr"]}',
+    ]
+    path.write_text('\n\n'.join([*header, *parser.blocks]) + '\n', encoding='utf-8')
+    return path
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('index', type=Path, help='Day index written by scrape.py')
     ap.add_argument('--output-dir', type=Path, default=Path('data'))
     args = ap.parse_args()
     index_data = json.loads(args.index.read_text(encoding='utf-8'))
-    entries = index_data['articles']
     output_dir = args.output_dir / index_data['date']
-    matches = [a for a in entries if is_candidate(a)]
+    matches = [a for a in index_data['articles'] if is_candidate(a)]
     output_dir.mkdir(parents=True, exist_ok=True)
     for article in matches:
-        path = output_dir / (article['urlTitle'].rsplit('/', 1)[-1] + '.md')
-        if path.is_file() and path.stat().st_size > 0:
-            continue
-        url = article['url']
-        page = get_html(url)
-        parser = ArticleParser()
-        parser.feed(page)
-        parser.flush()
-        if not parser.blocks:
-            raise RuntimeError(f'No article body found: {url}')
-        header = [
-            f'# {article["title"]}',
-            f'Source: {url}',
-            f'Date: {article["pubDate"]}',
-            f'Section: {article["pubName"]}',
-            f'Organization: {article["hierarchyStr"]}',
-        ]
-        content = '\n\n'.join([*header, *parser.blocks]) + '\n'
-        path.write_text(content, encoding='utf-8')
-        print(path)
+        path = save_article(article, output_dir)
+        if path:
+            print(path)
     print(f'Saved {len(matches)} articles')
 
 
