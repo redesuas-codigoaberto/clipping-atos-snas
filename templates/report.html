@@ -37,6 +37,13 @@
   }
 }
 * { box-sizing: border-box; }
+/* Each view's content column; the gov.br bar, header, date row and footer line up with it.
+   --inline pads a full-width element so its content starts where the column starts. */
+body { --content: 1064px; --inline: max(18px, calc((100% - var(--content)) / 2)); }
+body[data-view="regras"] { --content: 784px; }
+body[data-view="clipping"] { --content: 1364px; }
+body[data-view="clipping"][data-only] { --content: 800px; }
+body[data-view="dia"] { --content: 100vw; }
 /* The footer stays at the bottom of the window on short pages. */
 body { min-height: 100vh; display: flex; flex-direction: column; }
 body > main { flex: 1; }
@@ -60,12 +67,12 @@ input, select { min-height: 32px; background: var(--bg); border: 1px solid var(-
 
 /* gov.br bar, header and footer */
 .govbar { background: var(--govbar); border-bottom: 1px solid var(--line); }
-.govbar .wrap { display: flex; align-items: center; gap: 16px; height: 48px; padding: 0 18px; }
+.govbar .wrap { display: flex; align-items: center; gap: 16px; height: 48px; padding: 0 var(--inline); }
 .govbar img { height: 28px; width: auto; display: block; }
 .govbar .sep { width: 1px; height: 24px; background: var(--line); }
 .govbar span { font-size: 13px; color: var(--fg2); }
 .bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 24px; height: var(--bar);
-  padding: 0 18px; background: var(--bg); box-shadow: var(--shadow); }
+  padding: 0 var(--inline); background: var(--bg); box-shadow: var(--shadow); }
 .bar nav { display: flex; align-self: stretch; }
 .bar nav a { display: flex; align-items: center; padding: 0 12px; color: var(--fg2); font-weight: 500;
   border-bottom: 4px solid transparent; border-top: 4px solid transparent; }
@@ -73,7 +80,7 @@ input, select { min-height: 32px; background: var(--bg); border: 1px solid var(-
 .bar nav a.on { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
 .bar .brand { color: var(--accent); font-size: 18px; font-weight: 500; text-decoration: none; white-space: nowrap; }
 .bar #theme { margin-left: auto; width: 40px; padding: 0; border: 0; font-size: 18px; }
-.foot { background: var(--footer); color: #ffffff; padding: 28px 18px; font-size: 13px; }
+.foot { background: var(--footer); color: #ffffff; padding: 28px var(--inline); font-size: 13px; }
 .foot .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; }
 .foot img { height: 28px; filter: saturate(0) brightness(100); }
 .foot p { margin: 0; flex: 1 1 360px; }
@@ -84,7 +91,7 @@ input, select { min-height: 32px; background: var(--bg); border: 1px solid var(-
 .loading { padding: 40px; text-align: center; color: var(--fg2); }
 
 /* day */
-.top { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--line); }
+.top { display: flex; align-items: center; gap: 8px; padding: 10px var(--inline); border-bottom: 1px solid var(--line); }
 .top h1 { font-size: 15px; margin: 0 0 0 8px; font-weight: 600; }
 .top .right { margin-left: auto; }
 .board { display: grid; grid-template-columns: 340px minmax(0, 1fr) 340px; height: calc(100vh - var(--bar) - var(--top, 53px)); }
@@ -112,7 +119,7 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; }
 .side ul { margin: 2px 0; padding-left: 18px; }
 
 /* year */
-.page { max-width: 1100px; margin: 0 auto; padding: 24px 18px 60px; }
+.page { padding: 24px var(--inline) 60px; }
 .page h2 { font-size: 15px; margin: 36px 0 10px; }
 .page h2:first-child { margin-top: 0; }
 .lead { color: var(--fg2); margin: 0 0 14px; }
@@ -140,7 +147,7 @@ tr.on td { background: var(--bg2); font-weight: 600; }
 .filters select { max-width: 340px; }
 
 /* rules */
-.prose { max-width: 820px; margin: 0 auto; padding: 28px 18px 60px; font-size: 15px; line-height: 1.65; }
+.prose { padding: 28px var(--inline) 60px; font-size: 15px; line-height: 1.65; }
 .prose h1 { font-size: 22px; margin: 0 0 16px; }
 .prose h2 { font-size: 17px; margin: 34px 0 10px; }
 .prose h3 { font-size: 15px; margin: 24px 0 8px; }
@@ -160,13 +167,13 @@ tr.on td { background: var(--bg2); font-weight: 600; }
 .chips.types { margin-top: 0; }
 
 /* clipping emails */
-.emails { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 18px; max-width: 1400px; margin: 0 auto; }
+.emails { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 18px var(--inline); }
 .emails h3 { font-size: 13px; color: var(--fg2); margin: 0 0 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; height: 30px; }
 .email { border: 1px solid var(--line); border-radius: 8px; padding: 18px 22px; font-size: 14px; line-height: 1.6; }
 .email p { margin: 0 0 12px; }
 .email.empty { color: var(--fg2); }
 .badge { display: inline-flex; align-items: center; font-size: 13px; }
-.emails.single { grid-template-columns: minmax(0, 800px); justify-content: center; }
+.emails.single { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 1000px) { .emails { grid-template-columns: 1fr; } }
 .chips.types button { font-size: 12px; padding: 2px 9px; border-radius: 12px; }
 .pair { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; }
@@ -767,6 +774,8 @@ function route() {
   $('#app').replaceWith(fresh);
   board = null;
   const tab = document.body.dataset.only || (view === '' ? 'ano' : ['ano', 'clipping', 'resumos', 'regras'].includes(view) ? view : 'dia');
+  // The CSS sets the content width per view, and the header follows it.
+  document.body.dataset.view = tab;
   document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.v === tab));
   if (tab === 'ano') viewYear(fresh); else if (tab === 'clipping') viewClipping(fresh, rest[0]); else if (tab === 'resumos') viewSummaries(fresh); else if (tab === 'regras') viewRules(fresh); else viewDay(fresh, rest[0], rest[1]);
   window.scrollTo(0, 0);
