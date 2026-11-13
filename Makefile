@@ -5,7 +5,7 @@ PORT ?= 8000
 UV_RUN = uv run --group dev
 
 .DEFAULT_GOAL := help
-.PHONY: help site serve regenerate test lint format check
+.PHONY: help site serve regenerate test lint format check dispatch
 
 help: ## List the available targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  make %-12s %s\n", $$1, $$2}'
@@ -40,3 +40,9 @@ format: ## Fix what ruff can and format the code
 	$(UV_RUN) ruff format .
 
 check: lint test ## Run everything CI runs: lint and tests
+
+# Starts the daily workflow on GitHub through the gh CLI (https://cli.github.com/), logged in with `gh auth login`.
+# DATE=DD-MM-AAAA picks the edition; without it, the workflow uses today's date.
+dispatch: ## Run the daily workflow on GitHub now (DATE=DD-MM-AAAA for another edition)
+	gh workflow run clipping.yml --ref main $(if $(DATE),-f date=$(DATE))
+	@echo "Follow it with: gh run watch"

@@ -108,6 +108,7 @@ make test        # só os testes
 make lint        # só o ruff, sem alterar nada
 make format      # corrige o que o ruff consegue e formata o código
 make regenerate  # regrava clipping-novo/ a partir de data/ com as regras atuais
+make dispatch    # roda agora o workflow diário no GitHub (DATE=DD-MM-AAAA para outra edição)
 ```
 
 O workflow `.github/workflows/ci.yml` roda o ruff e os testes, no Python 3.12, a cada push e pull request. O Dependabot propõe todo mês a atualização das actions e das ferramentas.
