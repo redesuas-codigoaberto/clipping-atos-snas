@@ -7,6 +7,7 @@ import datetime as dt
 import gzip
 import json
 import re
+import shutil
 from pathlib import Path
 
 import dates
@@ -14,6 +15,8 @@ from clipping import MDS, assess_day, clipping_text, excerpt, identifier
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / 'templates' / 'report.html'
+# Fonts and the gov.br logo the pages load, copied next to them.
+ASSETS = ROOT / 'assets'
 RULES = ROOT / 'docs' / 'regras.md'
 MANUAL_DATE = re.compile(r'DOU-\s*(\d{2})/(\d{2})/(\d{4})')
 # A cited act: [title](https://www.in.gov.br/[en/]web/dou/-/slug-123456789) followed by its description.
@@ -194,6 +197,8 @@ def main():
     print(f'{args.output}: {len(model["days"])} days, {candidates} candidates, {size:.1f} MB')
     size = write_page(args.clipping_output, clipping_model(model), only='clipping')
     print(f'{args.clipping_output}: Clipping tab only, {size:.1f} MB')
+    for page in {args.output.parent, args.clipping_output.parent}:
+        shutil.copytree(ASSETS, page, dirs_exist_ok=True)
 
 
 if __name__ == '__main__':

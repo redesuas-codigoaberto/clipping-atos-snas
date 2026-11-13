@@ -5,51 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Clipping DOU · SNAS</title>
 <style>
+/* gov.br design system tokens (https://www.gov.br/ds): Rawline, the blue-warm palette and the feedback colors. */
+@font-face { font-family: Rawline; src: url("fonts/rawline-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: Rawline; src: url("fonts/rawline-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: Rawline; src: url("fonts/rawline-700.woff2") format("woff2"); font-weight: 600 700; font-display: swap; }
 :root {
-  --bg: #ffffff; --bg2: #f6f8fa; --fg: #1f2328; --fg2: #656d76; --line: #d8dee4;
-  --accent: #0969da; --hit: #1a7f37; --miss: #cf222e; --out: #8250df; --extra: #bf8700; --none: #afb8c1;
-  --mark: #fff1a8; --empty: #ebedf0;
+  --bg: #ffffff; --bg2: #f8f8f8; --fg: #333333; --fg2: #636363; --line: #cccccc; --field: #888888;
+  --accent: #1351b4; --accent-hover: #0c326f; --accent-soft: #d4e3ff; --on-accent: #ffffff;
+  --hit: #168821; --miss: #e52207; --out: #8250df; --extra: #c2850c; --none: #adadad;
+  --mark: #fff5c2; --empty: #ededed; --focus: #c2850c;
+  --govbar: #ffffff; --footer: #071d41; --shadow: 0 1px 6px rgba(51, 51, 51, .16);
+  --bar: 56px;
   color-scheme: light;
 }
 :root[data-theme="dark"] {
-  --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --fg2: #8d96a0; --line: #30363d;
-  --accent: #4493f8; --hit: #3fb950; --miss: #f85149; --out: #ab7df8; --extra: #d29922; --none: #484f58;
-  --mark: #5c4a00; --empty: #1c2128;
+  --bg: #071d41; --bg2: #0c326f; --fg: #ffffff; --fg2: #c5d4eb; --line: #1e4a8c; --field: #c5d4eb;
+  --accent: #c5d4eb; --accent-hover: #ffffff; --accent-soft: #0c326f; --on-accent: #071d41;
+  --hit: #5ac35d; --miss: #ff8d7b; --out: #c8a6ff; --extra: #ffcd07; --none: #6d86ad;
+  --mark: #5c4a00; --empty: #0c326f; --focus: #ffcd07;
+  --govbar: #071d41; --footer: #000000; --shadow: 0 1px 6px rgba(0, 0, 0, .5);
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --fg2: #8d96a0; --line: #30363d;
-    --accent: #4493f8; --hit: #3fb950; --miss: #f85149; --out: #ab7df8; --extra: #d29922; --none: #484f58;
-    --mark: #5c4a00; --empty: #1c2128;
+    --bg: #071d41; --bg2: #0c326f; --fg: #ffffff; --fg2: #c5d4eb; --line: #1e4a8c; --field: #c5d4eb;
+    --accent: #c5d4eb; --accent-hover: #ffffff; --accent-soft: #0c326f; --on-accent: #071d41;
+    --hit: #5ac35d; --miss: #ff8d7b; --out: #c8a6ff; --extra: #ffcd07; --none: #6d86ad;
+    --mark: #5c4a00; --empty: #0c326f; --focus: #ffcd07;
+    --govbar: #071d41; --footer: #000000; --shadow: 0 1px 6px rgba(0, 0, 0, .5);
     color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
+/* The footer stays at the bottom of the window on short pages. */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+body > main { flex: 1; }
 html, body { margin: 0; background: var(--bg); color: var(--fg);
-  font: 14px/1.55 -apple-system, "Segoe UI", system-ui, Roboto, Arial, sans-serif; }
+  font: 14px/1.6 Rawline, Raleway, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+/* The design system's focus ring: a dashed gold outline, visible on any background. */
+:focus-visible { outline: 4px dashed var(--focus); outline-offset: 2px; }
 button, input, select { font: inherit; color: inherit; }
-button { background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; padding: 4px 12px; cursor: pointer; }
-button:hover:not(:disabled) { border-color: var(--fg2); }
-button:disabled { opacity: .4; cursor: default; }
-input, select { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; }
+/* Buttons follow the design system's secondary button: pill-shaped, outlined in the interactive blue. */
+button { min-height: 32px; padding: 0 16px; border: 1px solid var(--accent); border-radius: 100em;
+  background: var(--bg); color: var(--accent); font-weight: 600; cursor: pointer; }
+button:hover:not(:disabled) { background: var(--accent-soft); }
+button:disabled { opacity: .45; cursor: default; }
+button.primary { background: var(--accent); color: var(--on-accent); }
+button.primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+input, select { min-height: 32px; background: var(--bg); border: 1px solid var(--field); border-radius: 6px; padding: 0 10px; }
 .muted { color: var(--fg2); }
 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; flex: none; }
-.bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 20px; height: 46px;
-  padding: 0 18px; border-bottom: 1px solid var(--line); background: var(--bg); }
-.bar nav a { color: var(--fg2); padding: 12px 2px; margin-right: 14px; border-bottom: 2px solid transparent; }
-.bar nav a.on { color: var(--fg); border-bottom-color: var(--accent); font-weight: 600; text-decoration: none; }
-.bar .brand { color: var(--fg); font-weight: 600; text-decoration: none; }
-.bar #theme { margin-left: auto; border: 0; background: none; color: var(--fg2); }
+
+/* gov.br bar, header and footer */
+.govbar { background: var(--govbar); border-bottom: 1px solid var(--line); }
+.govbar .wrap { display: flex; align-items: center; gap: 16px; height: 48px; padding: 0 18px; }
+.govbar img { height: 28px; width: auto; display: block; }
+.govbar .sep { width: 1px; height: 24px; background: var(--line); }
+.govbar span { font-size: 13px; color: var(--fg2); }
+.bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 24px; height: var(--bar);
+  padding: 0 18px; background: var(--bg); box-shadow: var(--shadow); }
+.bar nav { display: flex; align-self: stretch; }
+.bar nav a { display: flex; align-items: center; padding: 0 12px; color: var(--fg2); font-weight: 500;
+  border-bottom: 4px solid transparent; border-top: 4px solid transparent; }
+.bar nav a:hover { color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+.bar nav a.on { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.bar .brand { color: var(--accent); font-size: 18px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+.bar #theme { margin-left: auto; width: 40px; padding: 0; border: 0; font-size: 18px; }
+.foot { background: var(--footer); color: #ffffff; padding: 28px 18px; font-size: 13px; }
+.foot .wrap { display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; }
+.foot img { height: 28px; filter: saturate(0) brightness(100); }
+.foot p { margin: 0; flex: 1 1 360px; }
+.foot a { color: #ffffff; text-decoration: underline; }
+/* The colored logo has too little contrast on the dark theme's blue, so it turns white there. */
+:root[data-theme="dark"] .govbar img { filter: saturate(0) brightness(100); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .govbar img { filter: saturate(0) brightness(100); } }
 .loading { padding: 40px; text-align: center; color: var(--fg2); }
 
 /* day */
 .top { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--line); }
 .top h1 { font-size: 15px; margin: 0 0 0 8px; font-weight: 600; }
 .top .right { margin-left: auto; }
-.board { display: grid; grid-template-columns: 340px minmax(0, 1fr) 340px; height: calc(100vh - 46px - var(--top, 53px)); }
+.board { display: grid; grid-template-columns: 340px minmax(0, 1fr) 340px; height: calc(100vh - var(--bar) - var(--top, 53px)); }
 .board > section { overflow: auto; }
 .list { border-right: 1px solid var(--line); }
 .grp { display: flex; align-items: center; padding: 14px 16px 4px; font-size: 12px; font-weight: 600; color: var(--fg2); }
@@ -118,7 +156,7 @@ tr.on td { background: var(--bg2); font-weight: 600; }
 
 /* summaries */
 .chips { display: flex; gap: 6px; margin: 14px 0; flex-wrap: wrap; }
-.chips button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chips button.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .chips.types { margin-top: 0; }
 
 /* clipping emails */
@@ -165,6 +203,11 @@ body[data-only] #tabs a:not([data-v="clipping"]) { display: none; }
 </style>
 </head>
 <body data-only="__ONLY__">
+<div class="govbar"><div class="wrap">
+  <a href="https://www.gov.br/" title="Portal gov.br"><img src="govbr.webp" alt="gov.br" width="79" height="28"></a>
+  <span class="sep"></span>
+  <span>Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome</span>
+</div></div>
 <header class="bar">
   <a href="#ano" class="brand" title="Ir para Análise ano">Clipping DOU · SNAS</a>
   <nav id="tabs"><a href="#ano" data-v="ano">Análise ano</a><a href="#regras" data-v="regras">Regras</a><a href="#clipping" data-v="clipping">Clipping</a><a href="#resumos" data-v="resumos">Comparativo resumos</a><a href="#dia" data-v="dia">Análise dia</a></nav>
@@ -172,6 +215,12 @@ body[data-only] #tabs a:not([data-v="clipping"]) { display: none; }
 </header>
 <script>if (!document.body.dataset.only || document.body.dataset.only.startsWith('__')) delete document.body.dataset.only; else document.querySelector('.brand').href = '#clipping';</script>
 <main id="app"><p class="loading">Carregando…</p></main>
+<footer class="foot"><div class="wrap">
+  <img src="govbr.webp" alt="gov.br" width="79" height="28">
+  <p>Secretaria Nacional de Assistência Social · Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome.<br>
+  Clipping gerado automaticamente a partir do Diário Oficial da União: confira antes de usar.</p>
+  <p><a href="https://github.com/redesuas-codigoaberto/clipping-atos-snas">Código-fonte</a> sob a licença GPL-3.0.</p>
+</div></footer>
 <script type="application/octet-stream" id="model">__MODEL__</script>
 <script>
 'use strict';
@@ -696,7 +745,7 @@ function viewClipping(app, date) {
     </div>
     <div class="emails${only ? ' single' : ''}">
       ${only ? '' : manual}
-      <div><h3>Gerado automaticamente <button id="copy">Copiar</button><span id="copied" class="muted"></span></h3>
+      <div><h3>Gerado automaticamente <button id="copy" class="primary">Copiar</button><span id="copied" class="muted"></span></h3>
         <p class="muted">A seleção procura nomes e expressões, sem interpretar o assunto do ato: confira antes de usar.</p>
         <div class="email" id="generated">${renderMarkdown(day.clipping)}</div></div>
     </div>`;

@@ -40,6 +40,7 @@ Quando uma execução falha, o workflow abre a issue “Falha no clipping diári
 | `docs/regras.md` | Explicação das regras, exibida na aba Regras do relatório. |
 | `scripts/` | Os scripts do clipping, das páginas e do relatório. |
 | `templates/report.html` | Modelo das páginas do relatório. |
+| `assets/` | Fontes Rawline e logo do gov.br, copiadas para o site junto com as páginas. As fontes são distribuídas sob a SIL Open Font License 1.1 (`assets/fonts/OFL.txt`). |
 | `tests/` | Testes automáticos (veja “Desenvolvimento”). |
 
 Os nomes dos arquivos usam a data no formato DD-MM-AAAA. Por isso, a lista em ordem alfabética, como a do GitHub, não segue a ordem das datas.
@@ -51,6 +52,8 @@ O índice guarda só os atos do MDS, porque são os únicos avaliados. O índice
 A página inicial (`index.html`) mostra só o email gerado pelo programa, com o botão **Copiar**, que copia o email com a formatação, pronto para colar, e com setas e calendário para trocar de dia.
 
 `relatorio.html` é o relatório completo, que compara a seleção da regra com os clippings enviados pela equipe em cinco abas: Análise ano, Regras, Clipping, Comparativo resumos e Análise dia. As duas páginas são recalculadas a cada execução.
+
+As páginas seguem a identidade visual do gov.br: a fonte Rawline, as cores e os componentes do [Padrão Digital de Governo](https://www.gov.br/ds/), a barra do gov.br no topo e o rodapé em azul-escuro. O botão ◐ alterna entre o tema claro e o escuro.
 
 As páginas do GitHub Pages são públicas.
 
