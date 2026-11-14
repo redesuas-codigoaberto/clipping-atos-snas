@@ -2,7 +2,7 @@
 """Build day indexes and article texts from the raw reading-page cache written by backfill_html.py.
 
 For each date it merges the cached sections, keeps the candidate acts (see clipping.is_candidate), writes
-<data-dir>/<DD-MM-AAAA>.json like scrape.py does and downloads each candidate's full text like save_articles.py.
+<data-dir>/<year>/<DD-MM-AAAA>.json like scrape.py does and downloads each candidate's full text like save_articles.py.
 Texts already saved are skipped, so a stopped run resumes. A date whose sections are not all cached yet is skipped.
 """
 
@@ -18,6 +18,7 @@ from pathlib import Path
 import dates
 from backfill_html import path_for
 from clipping import is_candidate
+from data_repo import DAYS, RAW_HTML, year_dir
 from save_articles import NoArticleBody, save_article
 from scrape import SECTIONS
 
@@ -71,11 +72,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--start', type=dates.argument, required=True)
     parser.add_argument('--end', type=dates.argument, required=True)
-    parser.add_argument('--cache-dir', type=Path, default=Path('cache/html'))
-    parser.add_argument('--data-dir', type=Path, default=Path('cache/historico/data'))
+    parser.add_argument('--cache-dir', type=Path, default=RAW_HTML)
+    parser.add_argument('--data-dir', type=Path, default=DAYS)
     parser.add_argument('--workers', type=int, default=4)
     args = parser.parse_args()
-    args.data_dir.mkdir(parents=True, exist_ok=True)
     days = [args.start + dt.timedelta(days=i) for i in range((args.end - args.start).days + 1)]
     failed = skipped = 0
     with concurrent.futures.ThreadPoolExecutor(args.workers) as pool:
@@ -85,7 +85,9 @@ def main():
             if articles is None:
                 skipped += 1
             elif articles:
-                futures[pool.submit(save_texts, args.data_dir, date, write_index(args.data_dir, date, articles))] = date
+                folder = year_dir(args.data_dir, dates.name(date))
+                folder.mkdir(parents=True, exist_ok=True)
+                futures[pool.submit(save_texts, folder, date, write_index(folder, date, articles))] = date
         for i, future in enumerate(concurrent.futures.as_completed(futures), 1):
             failures = future.result()
             failed += bool(failures)

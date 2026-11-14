@@ -28,7 +28,7 @@ regenerate: ## Rewrite clipping-novo/ from data/ with the current rules (after a
 	done
 	@git diff --stat -- clipping-novo
 
-regenerate-historico: ## Rewrite clipping-historico/ (2004-2025) from cache/historico/data with the current rules
+regenerate-historico: ## Rewrite ../atos-snas-data/clippings (2004-2025) with the current rules
 	$(PYTHON) scripts/clippings_range.py
 
 test: ## Run the tests

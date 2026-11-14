@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Turn the monthly XML files of the DOU open data into day indexes and article texts, for 2004 to 2017.
 
-The Imprensa Nacional publishes one zip per section and month. This script downloads them to the cache
+The Imprensa Nacional publishes one zip per section and month. This script downloads them to the data repository
 (skipping zips already there, so a stopped run resumes) and writes, for each date with an edition, the same
-files the daily run writes from the reading page: data/<DD-MM-AAAA>.json with the candidate acts and
-data/<DD-MM-AAAA>/<id>.md with each act's full text. The old XML is not well formed (some attributes hold
-markup), so the fields are read with regular expressions instead of an XML parser.
+files the daily run writes from the reading page, in the folder of its year: <year>/<DD-MM-AAAA>.json with the
+candidate acts and <year>/<DD-MM-AAAA>/<id>.md with each act's full text. The old XML is not well formed
+(some attributes hold markup), so the fields are read with regular expressions instead of an XML parser.
 """
 
 import argparse
@@ -21,6 +21,7 @@ from pathlib import Path
 
 import dates
 from clipping import is_candidate
+from data_repo import DAYS, RAW_XML, year_dir
 from dou_fetch import get_bytes, get_html
 from save_articles import ArticleParser
 
@@ -174,10 +175,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--start', type=dates.argument, required=True)
     parser.add_argument('--end', type=dates.argument, required=True)
-    parser.add_argument('--cache-dir', type=Path, default=Path('cache/xml'))
-    parser.add_argument('--data-dir', type=Path, default=Path('data'))
+    parser.add_argument('--cache-dir', type=Path, default=RAW_XML)
+    parser.add_argument('--data-dir', type=Path, default=DAYS)
     args = parser.parse_args()
-    args.data_dir.mkdir(parents=True, exist_ok=True)
     for year, month in months(args.start, args.end):
         zips, absent = cached_zips(args.cache_dir, year, month)
         written = candidates = 0
@@ -188,7 +188,9 @@ def main():
                 print(f'{month:02d}-{year}: {len(entries)} acts without a valid date ({pub_date!r})', file=sys.stderr)
                 continue
             if args.start <= date <= args.end:
-                candidates += write_day(args.data_dir, dates.name(date), entries, absent)
+                folder = year_dir(args.data_dir, dates.name(date))
+                folder.mkdir(parents=True, exist_ok=True)
+                candidates += write_day(folder, dates.name(date), entries, absent)
                 written += 1
         gaps = f', missing sections {absent}' if absent else ''
         print(f'{month:02d}-{year}: {written} editions, {candidates} candidates{gaps}', flush=True)

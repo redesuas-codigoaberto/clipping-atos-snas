@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cache the raw, unfiltered DOU reading-page indexes for a date range, so that a long backfill can resume.
 
-Each date and section becomes cache/html/<year>/<DD-MM-AAAA>_<section>.json.gz. A file is written only
+Each date and section becomes ../atos-snas-data/raw/html/<year>/<DD-MM-AAAA>_<section>.json.gz. A file is written only
 after its download succeeds, so stopping the run (Ctrl+C) loses at most the files in progress, and running
 the same command again skips every file already cached. Nothing is filtered here: the ministry changed
 its name over the years, and the selection is done later from the cache.
@@ -17,6 +17,7 @@ import sys
 from pathlib import Path
 
 import dates
+from data_repo import RAW_HTML
 from scrape import SECTIONS, fetch
 
 
@@ -56,7 +57,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--start', type=dates.argument, required=True)
     parser.add_argument('--end', type=dates.argument, required=True)
-    parser.add_argument('--cache-dir', type=Path, default=Path('cache/html'))
+    parser.add_argument('--cache-dir', type=Path, default=RAW_HTML)
     parser.add_argument('--workers', type=int, default=4)
     args = parser.parse_args()
     days = [args.start + dt.timedelta(days=i) for i in range((args.end - args.start).days + 1)]
