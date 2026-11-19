@@ -1,0 +1,15 @@
+# RETIFICAÇÃO
+
+Source: https://www.in.gov.br/web/dou/-/retificacao-745430918
+
+Date: 19/11/2026
+
+Section: DO3
+
+Organization: Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome/Gabinete do Ministro
+
+## RETIFICAÇÃO
+
+Onde se lê No EXTRATO DE TERMO DE DOAÇÃO: Nº 439/2026, publicado no Diário Oficial da União, nº 216, de 17/11/2026, Seção 3, página 94, PROCESSO: 71000.054190/2026-71 - Termo de Doação celebrado entre a União, por meio do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome - MDS - inscrito no CNPJ sob o nº 05.526.783/0001-65 e o Município de Cornélio Procópio/PR, inscrito no CNPJ sob o nº 76.331.941/0001-70.OBJETO: Doação de 1 (um) veículo tipo utilitário - caminhonete, Modelo Toro Volcano Turbo Diesel 4x4, com a finalidade de transportar equipes multidisciplinares e usuários referenciados à Rede Proteção Social Básica e Especial, integrante do Sistema Único de Assistência Social - SUAS. RECURSOS: Valor Global R$ 210.450,00 (duzentos e dez mil quatrocentos e cinquenta reais). DOADOR: UNIÃO, representado pelo Sr. JOSÉ WELLINGTON BARROSO DE ARAÚJO DIAS - Ministro de Estado do Desenvolvimento e Assistência Social, Família e Combate à Fome - MDS, inscrito no CPF nº ***.556.633-**. DONATÁRIO(A): Representado pelo(a) Sr(a). RHAFAEL DIAS SAMPAIO - Prefeito(a) Municipal de Cornélio Procópio/PR, inscrito no CPF nº XXX.203.409-**. Data da assinatura: 16/11/2026.
+
+Leia-se: EXTRATO DE TERMO DE DOAÇÃO: Nº 434. PROCESSO: 71000.054190/2026-71 - Termo de Doação celebrado entre a União, por meio do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome - MDS - inscrito no CNPJ sob o nº 05.526.783/0001-65 e o Município de Cornélio Procópio, inscrito no CNPJ sob o nº 76.331.941/0001-70. OBJETO: Doação de 1 (um) veículo tipo utilitário - caminhonete, Modelo Toro Volcano Turbo Diesel 4x4, com a finalidade de transportar equipes multidisciplinares e usuários referenciados à Rede Proteção Social Básica e Especial, integrante do Sistema Único de Assistência Social - SUAS. RECURSOS: Valor Global R$ 210.450,00 (duzentos e dez mil quatrocentos e cinquenta reais). DOADOR: UNIÃO, representado pelo Sr. JOSÉ WELLINGTON BARROSO DE ARAÚJO DIAS - Ministro de Estado do Desenvolvimento e Assistência Social, Família e Combate à Fome - MDS, inscrito no CPF nº ***.556.633-**. DONATÁRIO(A): Representado pelo(a) Sr(a). RHAFAEL DIAS SAMPAIO - Prefeito(a) Municipal de Cornélio Procópio/PR, inscrito no CPF nº XXX.203.409-**. Data da assinatura: 16/11/2026.
